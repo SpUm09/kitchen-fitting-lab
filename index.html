@@ -1,0 +1,537 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Примерочная кухни</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap&subset=cyrillic">
+<style>
+/* Layout: sticky kitchen scene with a summary on the left, ready sets and a surface-by-surface picker on the right. Pantone chips sit beside the classic colors. */
+:root{
+  --bg:#E9EAED;
+  --surface:#F6F6F7;
+  --ink:#1D2026;
+  --muted:#5B616B;
+  --line:#D3D5DA;
+  --accent:#B7C6D6;
+  --ring:#6C86A3;
+  --ring-ink:#FFFFFF;
+  --link:#46607D;
+  --accent-ink:#17202B;
+  --tint:#DFE2E7;
+  --font-display:'Jost','Trebuchet MS',Arial,sans-serif;
+  --font-body:'Manrope','Segoe UI',Arial,sans-serif;
+  --font-mono:'JetBrains Mono',ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#16171A;--surface:#1F2125;--ink:#E7E8EA;--muted:#9A9FA8;--line:#30333A;--accent:#9FB4CA;--accent-ink:#0F1620;--ring:#8FA7C0;--ring-ink:#0F141A;--link:#9DB5CE;--tint:#272A30;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#16171A;--surface:#1F2125;--ink:#E7E8EA;--muted:#9A9FA8;--line:#30333A;--accent:#9FB4CA;--accent-ink:#0F1620;--ring:#8FA7C0;--ring-ink:#0F141A;--link:#9DB5CE;--tint:#272A30;color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.55;padding-block:28px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{max-width:1240px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+header{display:flex;flex-direction:column;gap:8px}
+.top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:999px;padding:3px;background:var(--surface);gap:2px}
+.seg button{border:0;background:transparent;border-radius:999px;padding:6px 12px;font-weight:600;font-size:13px;cursor:pointer;color:var(--muted)}
+.seg button:hover{color:var(--ink)}
+.seg button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink)}
+h1{font-family:var(--font-display);font-weight:500;font-size:clamp(28px,5vw,40px);line-height:1.1;margin:0;text-wrap:balance}
+h2{font-family:var(--font-display);font-weight:500;font-size:22px;line-height:1.2;margin:0;text-wrap:balance}
+h3{margin:0}
+.lead{margin:0;color:var(--muted);max-width:62ch}
+.cols{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:32px;align-items:start}
+.left,.right{display:flex;flex-direction:column;gap:20px;min-width:0}
+@media (min-width:980px) and (min-height:780px){.left{position:sticky;top:16px}}
+@media (max-width:979px){.cols{grid-template-columns:minmax(0,1fr)}}
+.scene{border-radius:14px;overflow:hidden;border:1px solid var(--line);line-height:0;background:var(--surface)}
+.scene svg{width:100%;height:auto;display:block}
+.scene [data-s]{cursor:pointer}
+.scene .wall{fill:var(--c-wall)}.scene .floor{fill:var(--c-floor)}.scene .front{fill:var(--c-front)}.scene .top{fill:var(--c-top)}.scene .tile{fill:var(--c-tile)}.scene .carc{fill:var(--c-body)}.scene .fridge{fill:var(--c-fridge)}.scene .plinth{fill:var(--c-plinth)}.scene .oven{fill:var(--c-oven)}.scene .micro{fill:var(--c-micro)}
+@media (prefers-reduced-motion:no-preference){.scene .wall,.scene .floor,.scene .front,.scene .top,.scene .tile,.scene .carc,.scene .fridge,.scene .plinth,.scene .oven,.scene .micro{transition:fill .25s ease}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
+.sumhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.sumlist{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px 20px;margin:0;padding:0;list-style:none}
+.sumlist li{display:flex;align-items:center;gap:10px;min-width:0}
+.dot{width:28px;height:28px;border-radius:6px;border:1px solid rgba(0,0,0,.18);flex:none}
+.sumtxt{display:flex;flex-direction:column;min-width:0;line-height:1.3}
+.sumtxt b{font-weight:600;font-size:13px;color:var(--muted)}
+.sumtxt span{overflow-wrap:anywhere}
+.code{font-family:var(--font-mono);font-size:12px;color:var(--muted)}
+button{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:8px 14px;font-weight:600;font-size:14px;cursor:pointer}
+.btn:hover{border-color:var(--ring)}
+.status{font-size:13px;color:var(--muted)}
+:focus-visible{outline:2px solid var(--ring);outline-offset:2px}
+.presets{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.preset{display:flex;flex-direction:column;gap:8px;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px;cursor:pointer;min-width:0}
+.preset:hover{border-color:var(--ring)}
+.preset[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ring);border-color:var(--ring)}
+.strip{display:flex;height:30px;border-radius:6px;overflow:hidden;border:1px solid rgba(0,0,0,.15)}
+.strip i{flex:1}
+.pn{font-weight:600;font-size:14px;line-height:1.25}
+.pb{font-size:13px;color:var(--muted);line-height:1.4}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:2px}
+.tab{flex:none;border:1px solid var(--line);background:transparent;border-radius:999px;padding:7px 14px;font-weight:600;font-size:14px;cursor:pointer}
+.tab[aria-selected="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--ring)}
+.group{display:flex;flex-direction:column;gap:10px}
+.gh{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.chips{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:10px}
+.chip{position:relative;display:flex;flex-direction:column;padding:0;text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:10px;overflow:hidden;cursor:pointer;min-width:0}
+.chip:hover{border-color:var(--ring)}
+.chip[aria-pressed="true"]{box-shadow:0 0 0 2px var(--ring);border-color:var(--ring)}
+.blk{display:block;height:62px;position:relative;border-bottom:1px solid rgba(0,0,0,.12)}
+.chip[aria-pressed="true"] .blk::after{content:"✓";position:absolute;right:8px;top:8px;width:20px;height:20px;border-radius:50%;background:var(--ring);color:var(--ring-ink);font-size:12px;line-height:20px;text-align:center}
+.blk svg{display:block;width:100%;height:62px}
+.meta{display:flex;flex-direction:column;gap:1px;padding:8px 10px 10px}
+.nm{font-size:13px;font-weight:600;line-height:1.25;overflow-wrap:anywhere}
+.cd{font-family:var(--font-mono);font-size:11px;color:var(--muted)}
+.toggle{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;cursor:pointer;font-weight:600;font-size:14px}
+.toggle input{width:18px;height:18px;accent-color:var(--ring);margin:0}
+.picks{display:flex;gap:10px;flex-wrap:wrap}
+.pickbox{display:flex;align-items:center;gap:12px;padding:8px 14px 8px 8px;background:var(--surface);border:1px solid var(--line);border-radius:10px;cursor:pointer}
+.pickbox:hover{border-color:var(--ring)}
+.pickbox[data-on="true"]{box-shadow:0 0 0 2px var(--ring);border-color:var(--ring)}
+.pickbox input[type=color]{width:52px;height:40px;padding:0;border:1px solid rgba(0,0,0,.2);border-radius:6px;background:none;cursor:pointer}
+.pickt{display:flex;flex-direction:column;line-height:1.3}
+.pickt .pn{font-size:13px;font-weight:600}
+.note{font-size:13px;color:var(--muted);margin:0}
+.note a{color:var(--link)}
+footer{font-size:13px;color:var(--muted);max-width:80ch;display:flex;flex-direction:column;gap:6px}
+footer p{margin:0}
+footer a{color:var(--link)}
+</style>
+
+<div class="wrap">
+<header>
+<div class="top">
+<h1>Примерочная кухни</h1>
+<div class="seg" id="themeSeg" role="group" aria-label="Тема оформления">
+<button type="button" data-t="system">Как в системе</button>
+<button type="button" data-t="light">Светлая</button>
+<button type="button" data-t="dark">Тёмная</button>
+</div>
+</div>
+<p class="lead">Меняйте цвет стен, пола, фасадов, корпусов, цоколя, столешницы, фартука и холодильника и сразу смотрите, как они сочетаются. Берите готовые сочетания, трендовые оттенки Pantone или задавайте свой цвет.</p>
+</header>
+
+<div class="cols">
+<div class="left">
+<div class="scene" id="scene" style="--c-wall:#F1E8D2;--c-floor:#EDE6D6;--c-front:#A89B8C;--c-top:#D2B48C;--c-tile:#EDE6D8;--c-body:#797065;--c-fridge:#C4C7C9;--c-plinth:#797065;--c-oven:#C4C7C9;--c-micro:#C4C7C9">
+<svg id="sceneSvg" viewBox="0 0 900 440" role="img" aria-label="Схема кухни: верхние и нижние шкафы, колонна с духовкой и микроволновкой, холодильник, столешница, плитка фартука, стены и пол. Нажмите на поверхность, чтобы выбрать её цвет.">
+<defs>
+<clipPath id="fc"><polygon points="60,300 840,300 900,440 0,440"/></clipPath>
+<pattern id="pat-subway" width="40" height="20" patternUnits="userSpaceOnUse"><path class="gp" d="M0 .5H40M0 10.5H40M.5 0V10M20.5 10V20" stroke="#000" stroke-opacity=".13" fill="none"/></pattern>
+<pattern id="pat-subv" width="20" height="44" patternUnits="userSpaceOnUse"><path class="gp" d="M.5 0V44M10.5 0V44M0 .5H10M0 22.5H10M10 11.5H20M10 33.5H20" stroke="#000" stroke-opacity=".13" fill="none"/></pattern>
+<pattern id="pat-herring" width="20" height="20" patternUnits="userSpaceOnUse"><path class="gp" d="M0 0L10 10L20 0M0 10L10 20L20 10" stroke="#000" stroke-opacity=".13" fill="none"/></pattern>
+<pattern id="pat-square" width="14" height="14" patternUnits="userSpaceOnUse"><path class="gp" d="M.5 0V14M0 .5H14" stroke="#000" stroke-opacity=".13" fill="none"/></pattern>
+<pattern id="pat-hex" width="17.32" height="30" patternUnits="userSpaceOnUse"><path class="gp" d="M8.66 0L17.32 5V15L8.66 20L0 15V5Z M8.66 20V30" stroke="#000" stroke-opacity=".13" fill="none"/></pattern>
+<pattern id="pat-mosaic" width="7" height="7" patternUnits="userSpaceOnUse"><path class="gp" d="M.5 0V7M0 .5H7" stroke="#000" stroke-opacity=".13" fill="none"/></pattern>
+<pattern id="fp-tile" width="50" height="26" patternUnits="userSpaceOnUse"><path d="M.5 0V26M0 .5H50" stroke="#000" stroke-opacity=".16" fill="none"/></pattern>
+<pattern id="fp-planks" width="60" height="16" patternUnits="userSpaceOnUse"><path d="M0 .5H60M0 8.5H60M20.5 0V8M45.5 8V16" stroke="#000" stroke-opacity=".16" fill="none"/></pattern>
+<pattern id="fp-herring" width="40" height="20" patternUnits="userSpaceOnUse"><path d="M0 0L10 10L20 0L30 10L40 0M0 10L10 20L20 10L30 20L40 10" stroke="#000" stroke-opacity=".16" fill="none"/></pattern>
+<pattern id="fp-checker" width="60" height="32" patternUnits="userSpaceOnUse"><rect x="0" y="0" width="30" height="16" fill="#000" fill-opacity=".1"/><rect x="30" y="16" width="30" height="16" fill="#000" fill-opacity=".1"/></pattern>
+<pattern id="fp-terrazzo" width="70" height="46" patternUnits="userSpaceOnUse"><circle cx="8" cy="6" r="1.8" fill="#000" fill-opacity=".2"/><circle cx="24" cy="14" r="1.2" fill="#fff" fill-opacity=".45"/><circle cx="40" cy="8" r="2" fill="#000" fill-opacity=".2"/><circle cx="58" cy="18" r="1.4" fill="#fff" fill-opacity=".45"/><circle cx="14" cy="26" r="1.4" fill="#000" fill-opacity=".2"/><circle cx="32" cy="32" r="2" fill="#fff" fill-opacity=".45"/><circle cx="50" cy="36" r="1.6" fill="#000" fill-opacity=".2"/><circle cx="64" cy="40" r="1.2" fill="#000" fill-opacity=".2"/><circle cx="6" cy="40" r="1.8" fill="#fff" fill-opacity=".45"/><circle cx="26" cy="44" r="1.2" fill="#000" fill-opacity=".2"/></pattern>
+<pattern id="fp-slabs" width="100" height="44" patternUnits="userSpaceOnUse"><path d="M0 .5H100M0 22.5H100M.5 0V22M50.5 22V44" stroke="#000" stroke-opacity=".16" fill="none"/></pattern>
+</defs>
+<g data-s="wall">
+<polygon points="0,0 900,0 840,30 60,30" class="wall"/>
+<polygon points="0,0 900,0 840,30 60,30" fill="#fff" fill-opacity=".4"/>
+<rect x="60" y="30" width="780" height="270" class="wall"/>
+<polygon points="0,0 60,30 60,300 0,440" class="wall"/>
+<polygon points="0,0 60,30 60,300 0,440" fill="#000" fill-opacity=".07"/>
+<polygon points="900,0 840,30 840,300 900,440" class="wall"/>
+<polygon points="900,0 840,30 840,300 900,440" fill="#000" fill-opacity=".1"/>
+</g>
+<g data-s="floor">
+<polygon points="60,300 840,300 900,440 0,440" class="floor"/>
+<g id="fl-persp" clip-path="url(#fc)" stroke="#000" stroke-opacity=".13" fill="none"><path d="M108.8 300L-198.4 440M157.5 300L-105.8 440M206.2 300L-13.1 440M255.0 300L79.5 440M303.8 300L172.1 440M352.5 300L264.8 440M401.2 300L357.4 440M450.0 300L450.0 440M498.8 300L542.6 440M547.5 300L635.2 440M596.2 300L727.9 440M645.0 300L820.5 440M693.8 300L913.1 440M742.5 300L1005.8 440M791.2 300L1098.4 440"/></g>
+<g id="fl-horiz" clip-path="url(#fc)" stroke="#000" stroke-opacity=".13" fill="none"><path d="M0 316H900M0 337H900M0 366H900M0 405H900"/></g>
+<polygon id="floorov" points="60,300 840,300 900,440 0,440" fill="none"/>
+</g>
+<g transform="translate(100 0)">
+<g data-s="tile">
+<rect x="100" y="150" width="480" height="44" class="tile"/>
+<rect id="tileov" x="100" y="150" width="480" height="44" fill="url(#pat-subway)"/>
+<rect x="100" y="150" width="480" height="5" fill="#000" fill-opacity=".07"/>
+</g>
+<g data-s="body" stroke="#000" stroke-opacity=".2">
+<rect x="98" y="48" width="154" height="104" class="carc"/>
+<rect x="428" y="48" width="154" height="104" class="carc"/>
+<rect x="98" y="204" width="484" height="88" class="carc"/>
+</g>
+<g data-s="front" stroke="#000" stroke-opacity=".14">
+<rect x="100" y="50" width="72" height="100" rx="2" class="front"/>
+<rect x="178" y="50" width="72" height="100" rx="2" class="front"/>
+<rect x="430" y="50" width="72" height="100" rx="2" class="front"/>
+<rect x="508" y="50" width="72" height="100" rx="2" class="front"/>
+<rect x="100" y="206" width="115" height="86" rx="2" class="front"/>
+<rect x="221" y="206" width="115" height="86" rx="2" class="front"/>
+<rect x="342" y="206" width="117" height="24" rx="2" class="front"/>
+<rect x="342" y="236" width="117" height="24" rx="2" class="front"/>
+<rect x="342" y="266" width="117" height="26" rx="2" class="front"/>
+<rect x="465" y="206" width="115" height="86" rx="2" class="front"/>
+</g>
+<g fill="#2B2B2A">
+<rect x="126" y="141" width="20" height="3"/><rect x="203" y="141" width="20" height="3"/><rect x="456" y="141" width="20" height="3"/><rect x="533" y="141" width="20" height="3"/>
+<rect x="148" y="212" width="20" height="3"/><rect x="269" y="212" width="20" height="3"/><rect x="380" y="213" width="40" height="3"/><rect x="380" y="242" width="40" height="3"/><rect x="380" y="271" width="40" height="3"/><rect x="511" y="212" width="20" height="3"/>
+</g>
+<rect x="328" y="30" width="24" height="80" fill="#3B3B39"/>
+<polygon points="272,150 408,150 382,108 298,108" fill="#2F2F2D"/>
+<g data-s="top">
+<rect x="94" y="192" width="492" height="14" class="top"/>
+<rect x="94" y="192" width="492" height="4" fill="#fff" fill-opacity=".2"/>
+<path d="M130 200Q160 198 190 201M260 199Q300 202 340 199M420 201Q470 198 520 200" stroke="#000" stroke-opacity=".12" stroke-width="1" fill="none"/>
+<rect x="116" y="182" width="40" height="10" rx="1" class="top"/>
+<rect x="116" y="182" width="40" height="10" rx="1" fill="#000" fill-opacity=".14"/>
+</g>
+<rect x="312" y="190" width="56" height="3" fill="#2B2B2A"/>
+<rect x="522" y="172" width="16" height="20" rx="3" fill="#2F2F2D"/>
+<path d="M530 172L522 148M530 172L540 146" stroke="#4C5B4E" stroke-width="1.5" fill="none"/>
+<ellipse cx="521" cy="152" rx="5" ry="3" fill="#6F8570"/>
+<ellipse cx="540" cy="150" rx="5" ry="3" fill="#6F8570"/>
+<g data-s="plinth"><rect x="100" y="292" width="480" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/></g>
+<rect x="100" y="300" width="480" height="7" fill="#000" fill-opacity=".14"/>
+<g id="fridgeG" data-s="fridge">
+<rect x="590" y="38" width="98" height="264" rx="3" fill="#000" fill-opacity=".28"/>
+<rect x="592" y="40" width="94" height="156" rx="3" class="fridge" stroke="#000" stroke-opacity=".2"/>
+<rect x="592" y="200" width="94" height="100" rx="3" class="fridge" stroke="#000" stroke-opacity=".2"/>
+<rect x="676" y="46" width="6" height="144" fill="#fff" fill-opacity=".14"/>
+<rect x="676" y="206" width="6" height="88" fill="#fff" fill-opacity=".14"/>
+<rect x="600" y="88" width="5" height="60" rx="2" fill="#6D7072"/>
+<rect x="614" y="207" width="50" height="4" rx="2" fill="#6D7072"/>
+<rect x="592" y="300" width="94" height="7" fill="#000" fill-opacity=".14"/>
+</g>
+</g>
+<g id="colG">
+<g data-s="body" stroke="#000" stroke-opacity=".2"><rect x="96" y="42" width="100" height="250" class="carc"/></g>
+<g data-s="front" stroke="#000" stroke-opacity=".14">
+<rect x="100" y="44" width="92" height="56" rx="2" class="front"/>
+<rect x="100" y="218" width="92" height="32" rx="2" class="front"/>
+<rect x="100" y="256" width="92" height="34" rx="2" class="front"/>
+</g>
+<g fill="#2B2B2A"><rect x="132" y="92" width="28" height="3"/><rect x="132" y="225" width="28" height="3"/><rect x="132" y="263" width="28" height="3"/></g>
+<g data-s="micro" stroke="#000" stroke-opacity=".25">
+<rect x="100" y="106" width="92" height="40" rx="2" class="micro"/>
+<rect x="106" y="111" width="58" height="30" rx="2" fill="#1B1D20" fill-opacity=".9"/>
+<polygon points="108,113 140,113 120,139 108,139" fill="#fff" fill-opacity=".07" stroke="none"/>
+<rect x="170" y="113" width="16" height="5" rx="1" fill="#000" fill-opacity=".45" stroke="none"/>
+<circle cx="178" cy="128" r="4" fill="#000" fill-opacity=".4" stroke="none"/>
+<rect x="170" y="136" width="16" height="3" rx="1" fill="#000" fill-opacity=".3" stroke="none"/>
+</g>
+<g data-s="oven" stroke="#000" stroke-opacity=".25">
+<rect x="100" y="152" width="92" height="60" rx="2" class="oven"/>
+<rect x="104" y="156" width="84" height="8" rx="1" fill="#000" fill-opacity=".3" stroke="none"/>
+<circle cx="116" cy="160" r="2.4" fill="#fff" fill-opacity=".6" stroke="none"/>
+<circle cx="146" cy="160" r="2.4" fill="#fff" fill-opacity=".6" stroke="none"/>
+<circle cx="176" cy="160" r="2.4" fill="#fff" fill-opacity=".6" stroke="none"/>
+<rect x="106" y="170" width="80" height="36" rx="2" fill="#1B1D20" fill-opacity=".9"/>
+<polygon points="108,172 150,172 126,204 108,204" fill="#fff" fill-opacity=".07" stroke="none"/>
+<rect x="112" y="166" width="68" height="3" rx="1.5" fill="#6D7072" stroke="none"/>
+</g>
+<g data-s="plinth"><rect x="96" y="292" width="100" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/></g>
+<rect x="96" y="300" width="100" height="7" fill="#000" fill-opacity=".14"/>
+</g>
+</svg>
+</div>
+
+<section class="panel" aria-labelledby="sumttl">
+<div class="sumhead">
+<h2 id="sumttl">Набор цветов</h2>
+<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="status" id="msg" role="status" aria-live="polite"></span><button class="btn" id="copy" type="button">Скопировать список</button></div>
+</div>
+<ul class="sumlist" id="sumlist"></ul>
+</section>
+</div>
+
+<div class="right">
+<section class="panel" aria-labelledby="prttl">
+<h2 id="prttl">Готовые сочетания</h2>
+<div class="presets" id="presets"></div>
+<p class="note">Сочетания собраны по обзорам трендов 2026 года: <a href="https://www.homesandgardens.com/kitchens/kitchen-color-trends-2026" target="_blank" rel="noopener">Homes &amp; Gardens</a>, <a href="https://www.livingetc.com/ideas/kitchen-color-trends-2026" target="_blank" rel="noopener">Livingetc</a>, <a href="https://www.worktophub.co.uk/help-and-ideas/2026-top-kitchen-colour-trends" target="_blank" rel="noopener">Worktop Hub</a>. Оттенки приблизительные.</p>
+</section>
+
+<section class="panel" aria-labelledby="mnttl">
+<h2 id="mnttl">Подбор по поверхностям</h2>
+<div class="tabs" id="tabs" role="tablist" aria-label="Поверхность"></div>
+<div id="grid" role="tabpanel" style="display:flex;flex-direction:column;gap:18px"></div>
+<p class="note">Pantone: цвет года 2026 и палитра весны–лета 2027 из отчёта Pantone по Неделе моды в Нью-Йорке. <a href="https://fashionunited.uk/news/fashion/pantone-nyfw-spring-summer-2027-color-trend-report-the-top-10-colors/2026092190442" target="_blank" rel="noopener">Источник</a></p>
+</section>
+</div>
+</div>
+
+<footer>
+<p>Оттенки на экране приблизительные: экран искажает цвет, а у Pantone на экране нет единого эталона. Перед покупкой сверяйте по веерам Pantone и образцам краски или плитки при освещении в самой кухне.</p>
+<p>Иллюстрация схематичная и показывает сочетание цветов, а не точные размеры и пропорции.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+var P={
+  cloud:{name:'Cloud Dancer',code:'11-4201',hex:'#F0EEE9'},
+  antique:{name:'Antique White',code:'11-0105',hex:'#ECE8DC'},
+  anise:{name:'Anise Flower',code:'12-0717',hex:'#E6E0B5'},
+  tarragon:{name:'Tarragon',code:'15-0326',hex:'#8C9566'},
+  arrow:{name:'Arrowwood',code:'16-0954',hex:'#B58E4A'},
+  dolphin:{name:'Dolphin',code:'16-2901',hex:'#8E8A8C'},
+  waterfall:{name:'Waterfall',code:'15-5516',hex:'#6FB3A8'}
+};
+var SURF=[
+ {id:'wall',label:'Стены',classic:[['greige','Серо-бежевый','#D9D1C5'],['milk','Молочный','#F2EEE6'],['vanilla','Ваниль','#F1E8D2'],['limewash','Известковый крем','#E6DCC6'],['sand','Песочный','#D8C7A9'],['taupe','Тёплый тауп','#CBBFB1'],['plaster','Глиняная штукатурка','#CDA88E'],['lgray','Светло-серый','#CFCDC6'],['dustyblue','Пыльно-голубой','#C6D3DC'],['sagemist','Шалфейная дымка','#C9CFC2'],['sagedeep','Глубокий шалфей','#6F8570']],pan:['cloud','antique','anise','tarragon','dolphin']},
+ {id:'floor',label:'Пол',classic:[['warmgray','Тёплый серый','#C7C0B4'],['ivory','Слоновая кость','#EDE6D6'],['micro','Светлый микроцемент','#D4D0C8'],['cream','Кремовый','#E3DACB'],['lightoak','Светлый дуб','#CDB08A'],['walnut','Орех','#7A573F'],['terrafl','Терракотовая плитка','#B27A5C'],['mid','Серо-коричневый','#8E8579'],['concrete','Бетон','#9A958C'],['dark','Тёмный бетон','#6B6A68'],['blackstone','Тёмный камень','#3E3F42']],pan:['cloud','antique','dolphin','arrow']},
+ {id:'front',label:'Фасады',classic:[['mushroom','Грибной тауп','#A89B8C'],['mocha','Мокко','#7A5F50'],['cream','Кремовый','#E8DDC4'],['milk','Молочный','#E9E5DC'],['butter','Сливочно-жёлтый','#E6D49A'],['pink','Пыльно-розовый','#D9B8B0'],['ochre','Охра','#C08A3E'],['clay','Глиняный','#B59A87'],['wine','Винный','#6E2E3A'],['aubergine','Баклажан','#4A3346'],['teal','Дымчатый бирюзовый','#3F6B6B'],['navy','Чернильно-синий','#2E3F58'],['bluegray','Серо-голубой','#8FA1AA'],['olive','Оливковый','#7C7F4E'],['sage','Шалфей матовый','#8F9E91'],['forest','Тёмно-зелёный','#4F6352'],['graphite','Графит','#4A4D4F'],['black','Матовый чёрный','#232325']],pan:['tarragon','waterfall','dolphin','cloud']},
+ {id:'body',label:'Корпуса',classic:[['white','Белый','#F2F1EC'],['lgray','Светло-серый','#C9CBC8'],['graphite','Графит','#3A3D3F'],['black','Чёрный','#1F1F1E'],['oak','Дуб','#B58A5B']],pan:['cloud','dolphin']},
+ {id:'plinth',label:'Цоколь',classic:[['dark','Тёмный','#34322F'],['black','Чёрный','#1F1F1E'],['alu','Алюминий','#A9ABAD'],['white','Белый','#F2F1EC'],['oak','Дуб','#B58A5B']],pan:['dolphin']},
+ {id:'top',label:'Столешница',classic:[['oak','Дуб натуральный','#B58A5B'],['lightoak','Светлый дуб','#D2B48C'],['limedoak','Известковый дуб','#CDBFA6'],['walnut','Тёмный орех','#6B4A33'],['whitestone','Белый камень','#E6E3DC'],['taj','Тадж-Махал','#D8CFC0'],['terrazzo','Светлый терраццо','#DAD6CE'],['darkstone','Тёмный камень','#3A3B3D']],pan:['arrow','antique','dolphin']},
+ {id:'tile',label:'Фартук',classic:[['white','Белая плитка','#F6F4EF'],['milk','Молочная','#EDE6D8'],['lgray','Светло-серая','#D5D6D2'],['sand','Песочная','#D8C7A9'],['butter','Сливочная','#EBDDAE'],['pinkt','Нежно-розовая','#E3C9C4'],['blue','Пыльно-голубая','#B9CAD6'],['sagetile','Шалфейная','#B7C4B8'],['tealt','Бирюзовая','#5D8A87'],['terra','Терракотовая','#B66B50'],['dkgreen','Тёмно-зелёная','#3F5A4A'],['ink','Чернильная','#2E3F58'],['dark','Тёмная','#3B3B39']],pan:['cloud','antique','tarragon','anise']},
+ {id:'fridge',label:'Холодильник',classic:[['steel','Нержавеющая сталь','#C4C7C9'],['white','Белый','#F1F1EF'],['black','Чёрный матовый','#2B2C2E'],['cream','Кремовый ретро','#E8DFC9'],['graphf','Графит','#4A4D4F']],pan:['cloud','dolphin','tarragon']},
+ {id:'oven',label:'Духовка',classic:[['steel','Нержавеющая сталь','#C4C7C9'],['black','Чёрный','#1E1F22'],['white','Белый','#F1F1EF'],['graphite','Графит','#4A4D4F'],['bronze','Бронза','#8B6B4A'],['cream','Кремовый ретро','#E8DFC9']],pan:['cloud','dolphin']},
+ {id:'micro',label:'Микроволновка',classic:[['steel','Нержавеющая сталь','#C4C7C9'],['black','Чёрный','#1E1F22'],['white','Белый','#F1F1EF'],['graphite','Графит','#4A4D4F'],['bronze','Бронза','#8B6B4A'],['cream','Кремовый ретро','#E8DFC9']],pan:['cloud','dolphin']}
+];
+SURF.forEach(function(s){
+  s.opts=s.classic.map(function(c){return {id:c[0],name:c[1],hex:c[2]}}).concat(s.pan.map(function(k){return {id:'p-'+k,name:P[k].name,hex:P[k].hex,code:P[k].code,pan:true}}));
+});
+SURF.filter(function(s){return s.id==='body'})[0].opts.unshift({id:'tone',name:'В тон фасадов',hex:null,src:'front',f:.28});
+SURF.filter(function(s){return s.id==='fridge'})[0].opts.unshift({id:'tone',name:'В тон фасадов',hex:null,src:'front',f:0});
+SURF.filter(function(s){return s.id==='plinth'})[0].opts.unshift({id:'tone',name:'Как корпуса',hex:null,src:'body',f:0});
+['oven','micro'].forEach(function(id){SURF.filter(function(s){return s.id===id})[0].opts.unshift({id:'tone',name:'В тон фасадов',hex:null,src:'front',f:0})});
+SURF.forEach(function(s){s.opts.push({id:'custom',name:'Свой цвет',hex:null,cust:true})});
+var PRESETS=[
+ {name:'Грибной тауп',blurb:'Тёплый серо-коричневый матовый фасад и светлое дерево.',pick:{wall:'vanilla',floor:'ivory',front:'mushroom',top:'lightoak',tile:'milk',floorTex:'slabs'}},
+ {name:'Дымчатый бирюзовый',blurb:'Тёмная бирюза на тёплом белом фоне, терраццо и дерево.',pick:{wall:'p-antique',floor:'lightoak',front:'teal',top:'terrazzo',tile:'white',floorTex:'planks'}},
+ {name:'Cloud Dancer',blurb:'Цвет года Pantone: матовый белый, графичные соты на фартуке.',pick:{wall:'p-cloud',floor:'micro',front:'p-cloud',top:'whitestone',tile:'lgray',tileType:'hex',grout:'graphite',floorTex:'plain'}},
+ {name:'Мокко и терракота',blurb:'Кофейные фасады, светлый микроцемент, терракотовая плитка.',pick:{wall:'limewash',floor:'micro',front:'mocha',top:'whitestone',tile:'terra',tileType:'square',floorTex:'plain'}},
+ {name:'Винный и камень',blurb:'Глубокий винный цвет, светлый камень, чёрный холодильник.',pick:{wall:'taupe',floor:'mid',front:'wine',top:'whitestone',tile:'white',fridge:'black',floorTex:'herring'}},
+ {name:'Pantone Tarragon',blurb:'Травяной оттенок Pantone на фасадах, тёплые нейтральные стены.',pick:{wall:'p-antique',floor:'warmgray',front:'p-tarragon',top:'lightoak',tile:'p-cloud',tileType:'herring'}},
+ {name:'Оливковый и дерево',blurb:'Тёплый оливковый, натуральный дуб, ванильные стены.',pick:{wall:'vanilla',floor:'lightoak',front:'olive',top:'oak',tile:'white',tileType:'subv',floorTex:'planks'}},
+ {name:'Чернильно-синий',blurb:'Глубокий синий фасад и светлые нейтральные стены.',pick:{wall:'milk',floor:'warmgray',front:'navy',top:'whitestone',tile:'white',tileType:'herring',grout:'lgray',floorTex:'slabs'}},
+ {name:'Пыльно-розовый',blurb:'Мягкий розовый, белый камень и светлый пол.',pick:{wall:'p-cloud',floor:'micro',front:'pink',top:'whitestone',tile:'white',tileType:'square',fridge:'white',floorTex:'terrazzo'}},
+ {name:'Баклажан и орех',blurb:'Тёмный баклажан, орех на полу и светлые стены.',pick:{wall:'greige',floor:'walnut',front:'aubergine',top:'taj',tile:'milk',fridge:'black',floorTex:'herring'}},
+ {name:'Матовый чёрный',blurb:'Чёрные фасады, светлое дерево и белый камень.',pick:{wall:'lgray',floor:'lightoak',front:'black',top:'whitestone',tile:'white',grout:'graphite',fridge:'black',body:'black',floorTex:'planks'}},
+ {name:'Охра и земля',blurb:'Охристые фасады, песочные стены, терракотовый пол.',pick:{wall:'sand',floor:'terrafl',front:'ochre',top:'taj',tile:'milk',fridge:'cream'}},
+ {name:'Графит и Dolphin',blurb:'Тёмные фасады, серый пол Pantone, орех на столешнице.',pick:{wall:'p-cloud',floor:'p-dolphin',front:'graphite',top:'walnut',tile:'p-cloud',tileType:'square',grout:'graphite',body:'graphite',fridge:'black',floorTex:'checker'}},
+ {name:'Лофт',blurb:'Бетонные стены и пол, дерево как тёплый акцент.',pick:{wall:'lgray',floor:'concrete',front:'graphite',top:'oak',tile:'lgray',tileType:'slab',floorTex:'plain'}}
+];
+PRESETS.forEach(function(p){p.pick.body=p.pick.body||'tone';p.pick.fridge=p.pick.fridge||'steel';p.pick.plinth=p.pick.plinth||'tone';var ap=['steel','white','black','cream'].indexOf(p.pick.fridge)>=0?p.pick.fridge:'steel';p.pick.oven=p.pick.oven||ap;p.pick.micro=p.pick.micro||ap;p.pick.floorTex=p.pick.floorTex||'tile'});
+var TYPES=[['subway','Кабанчик','Классика'],['subv','Кабанчик вертикально','Вертикально'],['herring','Ёлочка','Зигзаг'],['square','Квадратная','Сетка'],['hex','Шестигранник','Соты'],['mosaic','Мозаика','Мелкая'],['slab','Сплошная панель','Без швов'],['match','В цвет столешницы','Сплошная']];
+var FLOORTEX=[['tile','Плитка','Сетка'],['planks','Доска','Доски'],['plain','Однотонный','Без рисунка'],['herring','Паркет ёлочка','Ёлочка'],['checker','Шахматка','Клетка'],['terrazzo','Терраццо','Крапинки'],['slabs','Крупные плиты','Широкие швы']];
+var GROUTS=[['tone','В тон плитки',null],['white','Белый','#FFFFFF'],['lgray','Светло-серый','#BDBDB8'],['beige','Тёплый бежевый','#CBBFA9'],['graphite','Графит','#4A4A48']];
+function shade(hex,f){var n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255;function c(v){return Math.round(v*(1-f))}return '#'+((1<<24)+(c(r)<<16)+(c(g)<<8)+c(b)).toString(16).slice(1).toUpperCase()}
+function baseTileHex(){return find('tile',sel.tile).hex}
+function topHex(){return find('top',sel.top).hex}
+function rowHidden(id){return (id==='fridge'&&!sel.fridgeOn)||((id==='oven'||id==='micro')&&!sel.colOn)}
+function floorHex(){return find('floor',sel.floor).hex}
+function floorTexName(){return FLOORTEX.filter(function(t){return t[0]===sel.floorTex})[0][1]}
+function isSolid(){return sel.tileType==='slab'||sel.tileType==='match'}
+function tileHex(){return sel.tileType==='match'?topHex():baseTileHex()}
+function groutHex(){if(sel.grout==='custom')return custom.grout;var g=GROUTS.filter(function(x){return x[0]===sel.grout})[0];return g[2]||shade(tileHex(),.2)}
+function typeName(){return TYPES.filter(function(t){return t[0]===sel.tileType})[0][1]}
+function groutName(){if(sel.grout==='custom')return 'Свой цвет';return GROUTS.filter(function(x){return x[0]===sel.grout})[0][1]}
+function el(tag,cls,text){var e=document.createElement(tag);if(cls)e.className=cls;if(text!=null)e.textContent=text;return e}
+function rawOpt(sid,oid){var s=SURF.filter(function(x){return x.id===sid})[0];return s.opts.filter(function(o){return o.id===oid})[0]}
+function resolveHex(sid,oid,pick){var o=rawOpt(sid,oid);if(o.cust)return custom[sid];return o.src?shade(resolveHex(o.src,pick[o.src],pick),o.f):o.hex}
+function find(sid,oid){var o=rawOpt(sid,oid);if(!o)return o;return (o.src||o.cust)?{id:o.id,name:o.name,hex:resolveHex(sid,oid,sel)}:o}
+var scene=document.getElementById('scene'),grid=document.getElementById('grid'),tabs=document.getElementById('tabs'),presetsEl=document.getElementById('presets'),sumlist=document.getElementById('sumlist'),msg=document.getElementById('msg');
+var sel={},custom={};
+SURF.forEach(function(s){sel[s.id]=PRESETS[0].pick[s.id]});sel.tileType='subway';sel.grout='tone';sel.floorTex=PRESETS[0].pick.floorTex;sel.fridgeOn=true;sel.colOn=true;
+SURF.forEach(function(s){custom[s.id]=resolveHex(s.id,sel[s.id],sel)});custom.grout=shade(tileHex(),.2);
+try{
+  var saved=JSON.parse(localStorage.getItem('kitchen-fitting-sel')||'null');
+  if(saved){SURF.forEach(function(s){if(saved[s.id]&&find(s.id,saved[s.id]))sel[s.id]=saved[s.id]});if(TYPES.some(function(t){return t[0]===saved.tileType}))sel.tileType=saved.tileType;if(saved.grout==='custom'||GROUTS.some(function(g){return g[0]===saved.grout}))sel.grout=saved.grout;if(FLOORTEX.some(function(t){return t[0]===saved.floorTex}))sel.floorTex=saved.floorTex;if(typeof saved.fridgeOn==='boolean')sel.fridgeOn=saved.fridgeOn;if(typeof saved.colOn==='boolean')sel.colOn=saved.colOn;if(saved.custom){Object.keys(custom).forEach(function(k){if(/^#[0-9a-fA-F]{6}$/.test(saved.custom[k]))custom[k]=saved.custom[k]})}}
+}catch(e){}
+var active='wall';
+function cur(){return SURF.filter(function(s){return s.id===active})[0]}
+
+function renderTabs(){
+  tabs.innerHTML='';
+  SURF.forEach(function(s){
+    var b=el('button','tab',s.label);b.type='button';b.setAttribute('role','tab');b.dataset.id=s.id;
+    b.setAttribute('aria-selected',String(s.id===active));b.tabIndex=s.id===active?0:-1;
+    b.onclick=function(){setTab(s.id)};
+    b.onkeydown=function(e){
+      var i=SURF.findIndex(function(x){return x.id===active});
+      if(e.key==='ArrowRight'){setTab(SURF[(i+1)%SURF.length].id,true)}
+      else if(e.key==='ArrowLeft'){setTab(SURF[(i+SURF.length-1)%SURF.length].id,true)}
+    };
+    tabs.appendChild(b);
+  });
+}
+function setTab(id,focus){
+  active=id;renderTabs();renderGrid();
+  if(focus){var t=tabs.querySelector('[data-id="'+id+'"]');if(t)t.focus()}
+}
+function renderGrid(){
+  var s=cur();grid.innerHTML='';if(s.id==='fridge')renderToggle('Показывать холодильник','fridgeOn');if(s.id==='oven'||s.id==='micro')renderToggle('Показывать колонну с духовкой и микроволновкой','colOn');if(s.id==='floor')renderFloorGroup();if(s.id==='tile'){renderTypeGroup();var mn=el('p','note','Фартук берёт цвет столешницы. Цвет плитки ниже начнёт действовать, если выбрать другой тип.');mn.id='matchNote';mn.hidden=sel.tileType!=='match';grid.appendChild(mn)}
+  [['Классика',s.opts.filter(function(o){return !o.pan&&!o.cust})],['Pantone в тренде',s.opts.filter(function(o){return o.pan})]].forEach(function(g){
+    var box=el('div','group');box.appendChild(el('div','gh',s.id==='tile'?'Цвет плитки · '+g[0]:g[0]));
+    var row=el('div','chips');
+    g[1].forEach(function(o){
+      var b=el('button','chip');b.type='button';b.dataset.id=o.id;b.dataset.kind='color';
+      b.setAttribute('aria-pressed',String(sel[s.id]===o.id));
+      var blk=el('span','blk');var oh=o.src?resolveHex(s.id,o.id,sel):o.hex;blk.style.background=oh;if(o.src)blk.dataset.dyn=o.id;
+      var m=el('span','meta');m.appendChild(el('span','nm',o.name));var cdt=el('span','cd',o.pan?'Pantone '+o.code:oh);if(o.src)cdt.dataset.dyn=o.id;m.appendChild(cdt);
+      b.appendChild(blk);b.appendChild(m);
+      b.onclick=function(){sel[s.id]=o.id;apply()};
+      row.appendChild(b);
+    });
+    box.appendChild(row);grid.appendChild(box);
+  });
+  if(s.id==='tile')renderGroutGroup();renderCustomGroup(s);grid.setAttribute('aria-label',s.label);
+}
+function renderToggle(label,key){
+  var box=el('div','group');
+  var lab=el('label','toggle');
+  var inp=document.createElement('input');inp.type='checkbox';inp.checked=!!sel[key];inp.dataset.key=key;
+  inp.addEventListener('change',function(){sel[key]=inp.checked;apply()});
+  lab.appendChild(inp);lab.appendChild(el('span',null,label));
+  box.appendChild(lab);grid.appendChild(box);
+}
+function renderFloorGroup(){
+  var box=el('div','group');box.appendChild(el('div','gh','Фактура пола'));
+  var row=el('div','chips');
+  FLOORTEX.forEach(function(t){
+    var b=el('button','chip');b.type='button';b.dataset.id=t[0];b.dataset.kind='floortex';
+    b.setAttribute('aria-pressed',String(sel.floorTex===t[0]));
+    var blk=el('span','blk');
+    blk.innerHTML='<svg viewBox="0 0 130 62" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect class="fvfill" width="130" height="62" fill="'+floorHex()+'"/>'+(t[0]==='plain'?'':'<rect width="130" height="62" fill="url(#fp-'+t[0]+')"/>')+'</svg>';
+    var m=el('span','meta');m.appendChild(el('span','nm',t[1]));m.appendChild(el('span','cd',t[2]));
+    b.appendChild(blk);b.appendChild(m);
+    b.onclick=function(){sel.floorTex=t[0];apply()};
+    row.appendChild(b);
+  });
+  box.appendChild(row);grid.appendChild(box);
+}
+function renderCustomGroup(s){
+  var box=el('div','group');box.appendChild(el('div','gh','Свой цвет'));
+  var row=el('div','picks');
+  var targets=s.id==='tile'?[['tile','Плитка'],['grout','Шов']]:[[s.id,'Любой оттенок']];
+  targets.forEach(function(t){
+    var key=t[0];
+    var wrap=el('label','pickbox');wrap.dataset.key=key;
+    var inp=document.createElement('input');inp.type='color';inp.value=custom[key];inp.id='pick-'+key;
+    inp.setAttribute('aria-label','Свой цвет: '+(s.id==='tile'?t[1].toLowerCase():s.label.toLowerCase()));
+    var txt=el('span','pickt');txt.appendChild(el('span','pn',t[1]));
+    var hx=el('span','code',custom[key].toUpperCase());hx.dataset.hexof=key;txt.appendChild(hx);
+    inp.addEventListener('input',function(){custom[key]=inp.value;sel[key]='custom';apply()});
+    wrap.appendChild(inp);wrap.appendChild(txt);row.appendChild(wrap);
+  });
+  box.appendChild(row);grid.appendChild(box);
+}
+function renderTypeGroup(){
+  var box=el('div','group');box.appendChild(el('div','gh','Тип укладки'));
+  var row=el('div','chips');
+  TYPES.forEach(function(t){
+    var b=el('button','chip');b.type='button';b.dataset.id=t[0];b.dataset.kind='type';
+    b.setAttribute('aria-pressed',String(sel.tileType===t[0]));
+    var blk=el('span','blk');
+    blk.innerHTML='<svg viewBox="0 0 130 62" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect class="tvfill" data-t="'+t[0]+'" width="130" height="62" fill="'+(t[0]==='match'?topHex():baseTileHex())+'"/>'+(t[0]==='slab'||t[0]==='match'?'':'<rect width="130" height="62" fill="url(#pat-'+t[0]+')"/>')+'</svg>';
+    var m=el('span','meta');m.appendChild(el('span','nm',t[1]));m.appendChild(el('span','cd',t[2]));
+    b.appendChild(blk);b.appendChild(m);
+    b.onclick=function(){sel.tileType=t[0];apply()};
+    row.appendChild(b);
+  });
+  box.appendChild(row);grid.appendChild(box);
+}
+function renderGroutGroup(){
+  var box=el('div','group');box.appendChild(el('div','gh','Цвет шва'));
+  var row=el('div','chips');
+  GROUTS.forEach(function(g){
+    var b=el('button','chip');b.type='button';b.dataset.id=g[0];b.dataset.kind='grout';
+    b.setAttribute('aria-pressed',String(sel.grout===g[0]));
+    var blk=el('span','blk');var hx=g[2]||shade(tileHex(),.2);blk.style.background=hx;if(!g[2])blk.dataset.tone='1';
+    var m=el('span','meta');m.appendChild(el('span','nm',g[1]));var cd=el('span','cd',hx);if(!g[2])cd.dataset.tone='1';m.appendChild(cd);
+    b.appendChild(blk);b.appendChild(m);
+    b.onclick=function(){sel.grout=g[0];apply()};
+    row.appendChild(b);
+  });
+  box.appendChild(row);
+  box.appendChild(el('p','note','Для сплошной панели швов нет, цвет шва на неё не влияет.'));
+  grid.appendChild(box);
+}
+function renderPresets(){
+  presetsEl.innerHTML='';
+  PRESETS.forEach(function(p,i){
+    var b=el('button','preset');b.type='button';b.dataset.i=i;
+    var strip=el('span','strip');
+    SURF.forEach(function(s){var d=document.createElement('i');d.style.background=resolveHex(s.id,p.pick[s.id],p.pick);strip.appendChild(d)});
+    b.appendChild(strip);b.appendChild(el('span','pn',p.name));b.appendChild(el('span','pb',p.blurb));
+    b.onclick=function(){SURF.forEach(function(s){sel[s.id]=p.pick[s.id]});sel.tileType=p.pick.tileType||'subway';sel.grout=p.pick.grout||'tone';sel.floorTex=p.pick.floorTex;apply()};
+    presetsEl.appendChild(b);
+  });
+}
+function renderSummary(){
+  sumlist.innerHTML='';
+  SURF.forEach(function(s){
+    var o=find(s.id,sel[s.id]);if(s.id==='tile'&&sel.tileType==='match')o={name:'В цвет столешницы',hex:topHex()};
+    if(rowHidden(s.id))return;
+    var li=el('li');var d=el('span','dot');d.style.background=o.hex;
+    var t=el('span','sumtxt');t.appendChild(el('b',null,s.label));
+    t.appendChild(el('span',null,o.name));
+    t.appendChild(el('span','code',o.pan?'Pantone '+o.code+' · '+o.hex:o.hex));
+    if(s.id==='floor')t.appendChild(el('span','code','Фактура: '+floorTexName()));
+    if(s.id==='tile')t.appendChild(el('span','code','Укладка: '+typeName()+(isSolid()?'':' · шов: '+groutName().toLowerCase()+' '+groutHex())));
+    li.appendChild(d);li.appendChild(t);sumlist.appendChild(li);
+  });
+}
+function apply(){
+  SURF.forEach(function(s){scene.style.setProperty('--c-'+s.id,find(s.id,sel[s.id]).hex)});
+  scene.style.setProperty('--c-tile',tileHex());
+  function dsp(id,on){var n=document.getElementById(id);if(n)n.setAttribute('display',on?'inline':'none')}
+  var ft=sel.floorTex;
+  dsp('fl-persp',ft==='tile'||ft==='planks');dsp('fl-horiz',ft==='tile');
+  document.getElementById('floorov').setAttribute('fill',['herring','checker','terrazzo','slabs'].indexOf(ft)>=0?'url(#fp-'+ft+')':'none');
+  dsp('fridgeG',sel.fridgeOn);dsp('colG',sel.colOn);
+  grid.querySelectorAll('.fvfill').forEach(function(r){r.setAttribute('fill',floorHex())});
+  grid.querySelectorAll('.toggle input').forEach(function(i){i.checked=!!sel[i.dataset.key]});
+  grid.querySelectorAll('.chip').forEach(function(b){var k=b.dataset.kind,v=k==='type'?sel.tileType:k==='grout'?sel.grout:k==='floortex'?sel.floorTex:sel[cur().id];b.setAttribute('aria-pressed',String(v===b.dataset.id))});
+  var gx=groutHex();
+  document.querySelectorAll('#sceneSvg .gp').forEach(function(p){p.setAttribute('stroke',gx);p.setAttribute('stroke-opacity','1');p.setAttribute('stroke-width','1')});
+  document.getElementById('tileov').setAttribute('fill',isSolid()?'none':'url(#pat-'+sel.tileType+')');
+  grid.querySelectorAll('.tvfill').forEach(function(r){r.setAttribute('fill',r.dataset.t==='match'?topHex():baseTileHex())});
+  var mnote=document.getElementById('matchNote');if(mnote)mnote.hidden=sel.tileType!=='match';
+  grid.querySelectorAll('[data-dyn]').forEach(function(n){var h=resolveHex(cur().id,n.dataset.dyn,sel);if(n.classList.contains('cd'))n.textContent=h;else n.style.background=h});
+  grid.querySelectorAll('.pickbox').forEach(function(w){var k=w.dataset.key;w.dataset.on=String(sel[k]==='custom');var i=w.querySelector('input');if(i.value.toLowerCase()!==custom[k].toLowerCase())i.value=custom[k];w.querySelector('[data-hexof]').textContent=custom[k].toUpperCase()});
+  grid.querySelectorAll('[data-tone]').forEach(function(n){var h=shade(tileHex(),.2);if(n.classList.contains('cd'))n.textContent=h;else n.style.background=h});
+  presetsEl.querySelectorAll('.preset').forEach(function(b){
+    var p=PRESETS[+b.dataset.i];
+    b.setAttribute('aria-pressed',String(SURF.every(function(s){return sel[s.id]===p.pick[s.id]})&&sel.tileType===(p.pick.tileType||'subway')&&sel.grout===(p.pick.grout||'tone')&&sel.floorTex===p.pick.floorTex));
+  });
+  renderSummary();
+  try{localStorage.setItem('kitchen-fitting-sel',JSON.stringify(Object.assign({custom:custom},sel)))}catch(e){}
+}
+function say(t){msg.textContent=t;clearTimeout(say.t);say.t=setTimeout(function(){msg.textContent=''},3000)}
+document.getElementById('copy').onclick=function(){
+  var text=SURF.filter(function(s){return !rowHidden(s.id)}).map(function(s){var o=find(s.id,sel[s.id]);if(s.id==='tile'&&sel.tileType==='match')o={name:'В цвет столешницы',hex:topHex()};return s.label+': '+o.name+(o.pan?' (Pantone '+o.code+')':'')+', '+o.hex+(s.id==='floor'?', фактура: '+floorTexName():'')+(s.id==='tile'?', укладка: '+typeName()+(isSolid()?'':', шов: '+groutName().toLowerCase()+' '+groutHex()):'')}).join('\n');
+  var fallback=function(){var r=document.createRange();r.selectNodeContents(sumlist);var g=window.getSelection();g.removeAllRanges();g.addRange(r);say('Список выделен, нажмите Ctrl+C')};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){say('Скопировано')},fallback)}else{fallback()}
+};
+document.getElementById('sceneSvg').addEventListener('click',function(e){
+  var g=e.target.closest('[data-s]');if(g)setTab(g.dataset.s);
+});
+var seg=document.getElementById('themeSeg');
+function setTheme(t,save){var r=document.documentElement;if(t==='system')r.removeAttribute('data-theme');else r.setAttribute('data-theme',t);seg.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.t===t))});if(save){try{localStorage.setItem('kitchen-fitting-theme',t)}catch(e){}}}
+seg.querySelectorAll('button').forEach(function(b){b.onclick=function(){setTheme(b.dataset.t,true)}});
+var th='system';try{th=localStorage.getItem('kitchen-fitting-theme')||'system'}catch(e){}
+if(['system','light','dark'].indexOf(th)<0)th='system';
+setTheme(th,false);
+renderTabs();renderGrid();renderPresets();apply();
+var SECRET={tolik:{wall:'greige',floor:'warmgray',front:'sage',body:'tone',plinth:'tone',top:'oak',tile:'white',fridge:'steel',tileType:'subway',grout:'tone',oven:'steel',micro:'steel',floorTex:'tile'}};
+function checkSecret(){
+  var key='';
+  try{key=new URLSearchParams(location.search).get('get')||''}catch(e){}
+  if(!key)key=(location.hash||'').replace(/^#/,'');
+  key=key.toLowerCase();
+  if(!key||!SECRET[key])return;
+  var p=SECRET[key];
+  SURF.forEach(function(s){sel[s.id]=p[s.id]});
+  sel.tileType=p.tileType;sel.grout=p.grout;sel.floorTex=p.floorTex;
+  apply();
+}
+checkSecret();
+window.addEventListener('hashchange',checkSecret);
+})();
+</script>
+
+</body></html>
