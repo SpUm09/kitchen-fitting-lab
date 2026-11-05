@@ -52,7 +52,7 @@ h3{margin:0}
 .scene.zoomed{position:fixed;z-index:60;left:50%;top:50%;transform:translate(-50%,-50%);width:min(1400px,calc(100vw - 32px),calc((100vh - 32px) * 2.04));margin:0}
 .scene.zoomed [data-s]{cursor:default}
 body.zooming{overflow:hidden}
-.scene .wall{fill:var(--c-wall)}.scene .floor{fill:var(--c-floor)}.scene .front{fill:var(--c-front)}.scene .top{fill:var(--c-top)}.scene .tile{fill:var(--c-tile)}.scene .carc{fill:var(--c-body)}.scene .fridge{fill:var(--c-fridge)}.scene .plinth{fill:var(--c-plinth)}.scene .oven{fill:var(--c-oven)}.scene .micro{fill:var(--c-micro)}.scene .handle{fill:var(--c-handle)}
+.scene .wall{fill:var(--c-wall)}.scene .floor{fill:var(--c-floor)}.scene .front{fill:var(--c-front)}.scene .top{fill:var(--c-top)}.scene .tile{fill:var(--c-tile)}.scene .carc{fill:var(--c-body)}.scene .fridge{fill:var(--c-fridge)}.scene .plinth{fill:var(--c-plinth)}.scene .oven{fill:var(--c-oven)}.scene .micro{fill:var(--c-micro)}.scene .handle{fill:var(--c-handle)}.scene .hood{fill:var(--c-hood)}.scene .hob{fill:var(--c-hob)}.scene .sink{fill:var(--c-sink)}.scene .faucet{fill:var(--c-faucet)}.scene .faucet-s{stroke:var(--c-faucet);fill:none}.scene .pend{fill:var(--c-pendant)}
 @media (prefers-reduced-motion:no-preference){.scene .wall,.scene .floor,.scene .front,.scene .top,.scene .tile,.scene .carc,.scene .fridge,.scene .plinth,.scene .oven,.scene .micro{transition:fill .25s ease}}
 .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:14px;min-width:0}
 .sumhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
