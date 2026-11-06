@@ -1,8 +1,13 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Примерочная кухни</title>
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500&family=Manrope:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap&subset=cyrillic">
 <link rel="stylesheet" href="style.css">
-
+</head>
+<body>
 <div class="wrap">
 <header>
 <div class="top">
@@ -19,7 +24,8 @@
 <div class="cols">
 <div class="left">
 <div class="stage">
-<div class="bar"><button class="btn" id="undo" type="button" disabled>↶ Отменить</button><button class="btn" id="redo" type="button" disabled>Повторить ↷</button><button class="btn" id="rand" type="button">Случайное сочетание</button></div>
+<div class="bar"><button class="btn" id="undo" type="button" disabled>↶ Отменить</button><button class="btn" id="redo" type="button" disabled>Повторить ↷</button><button class="btn" id="rand" type="button">Случайное сочетание</button><button class="btn" id="share" type="button">Скопировать ссылку</button><button class="btn" id="showBtn" type="button">Режим показа</button><span class="status" id="barMsg" role="status" aria-live="polite"></span></div>
+<input class="sharebox" id="shareBox" type="text" readonly hidden aria-label="Ссылка на сочетание">
 <div class="scene" id="scene" style="--c-wall:#F1E8D2;--c-floor:#EDE6D6;--c-front:#A89B8C;--c-top:#D2B48C;--c-tile:#EDE6D8;--c-body:#797065;--c-fridge:#C4C7C9;--c-plinth:#797065;--c-oven:#C4C7C9;--c-micro:#C4C7C9;--c-handle:#2B2B2A">
 <button class="zoombtn" id="zoomBtn" type="button" aria-expanded="false" aria-label="Увеличить схему" title="Увеличить"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5L21 21M7.5 10.5h6M10.5 7.5v6"/></svg></button>
 <svg id="sceneSvg" viewBox="0 0 900 440" role="img" aria-label="Схема кухни: верхние и нижние шкафы, колонна с духовкой и микроволновкой, холодильник, столешница, плитка фартука, стены и пол. Нажмите на поверхность, чтобы выбрать её цвет.">
@@ -56,6 +62,14 @@
 <polygon points="0,0 60,30 60,300 0,440" fill="#000" fill-opacity=".07"/>
 <polygon points="900,0 840,30 840,300 900,440" class="wall"/>
 <polygon points="900,0 840,30 840,300 900,440" fill="#000" fill-opacity=".1"/>
+</g>
+<g id="winG" data-s="window">
+<polygon points="8,80 52,78 52,217 8,268" class="win" stroke="#000" stroke-opacity=".25"/>
+<polygon points="12,90 48,88 48,206 12,254" class="winglass" fill="#CFE6F5"/>
+<polygon points="12,90 30,89 30,230 12,254" fill="#fff" fill-opacity=".22"/>
+<path d="M30 89V230M12 172L48 147" class="win-s" stroke-width="2.4" fill="none"/>
+<polygon points="12,90 48,88 48,206 12,254" fill="none" stroke="#000" stroke-opacity=".25"/>
+<polygon points="6,266 54,214 54,221 6,275" class="win" stroke="#000" stroke-opacity=".25"/>
 </g>
 <g data-s="floor">
 <polygon points="60,300 840,300 900,440 0,440" class="floor"/>
@@ -105,11 +119,7 @@
 </g>
 <g data-s="hob"><rect x="306" y="188.5" width="68" height="4" rx="1" class="hob" stroke="#000" stroke-opacity=".3"/><ellipse cx="324" cy="190.5" rx="7" ry="1" fill="#fff" fill-opacity=".22"/><ellipse cx="356" cy="190.5" rx="7" ry="1" fill="#fff" fill-opacity=".22"/></g>
 <g data-s="sink"><rect x="412" y="193" width="76" height="7" rx="2" class="sink" stroke="#000" stroke-opacity=".3"/><rect x="417" y="195" width="66" height="3.5" rx="1.5" fill="#000" fill-opacity=".3"/></g>
-<g data-s="faucet"><rect x="446" y="186" width="8" height="7" rx="1" class="faucet" stroke="#000" stroke-opacity=".25"/><rect x="448.5" y="166" width="3" height="20" class="faucet"/><path d="M450 168Q450 158 462 158L470 158L470 165" class="faucet-s" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><rect x="455" y="176" width="11" height="2.5" rx="1" class="faucet" stroke="#000" stroke-opacity=".25"/></g>
-<rect x="522" y="172" width="16" height="20" rx="3" fill="#2F2F2D"/>
-<path d="M530 172L522 148M530 172L540 146" stroke="#4C5B4E" stroke-width="1.5" fill="none"/>
-<ellipse cx="521" cy="152" rx="5" ry="3" fill="#6F8570"/>
-<ellipse cx="540" cy="150" rx="5" ry="3" fill="#6F8570"/>
+<g data-s="faucet"><rect x="446" y="186" width="8" height="7" rx="1" class="faucet" stroke="#000" stroke-opacity=".25"/><rect x="448.5" y="166" width="3" height="20" class="faucet"/><path d="M450 168Q450 158 462 158L470 158L470 165" class="faucet-s" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
 <g data-s="plinth"><rect x="100" y="292" width="480" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/></g>
 <rect x="100" y="300" width="480" height="7" fill="#000" fill-opacity=".14"/>
 <g id="fridgeG" data-s="fridge">
@@ -198,4 +208,19 @@
 </footer>
 </div>
 
+<div class="show" id="show" role="dialog" aria-modal="true" aria-label="Режим показа" hidden>
+<div class="show-top">
+<div class="show-title"><b id="showName"></b><span id="showBlurb"></span></div>
+<div class="show-actions"><div class="seg" id="showLight" role="group" aria-label="Освещение"></div><button class="btn" id="showKeep" type="button">Оставить это сочетание</button><button class="btn" id="showClose" type="button">Закрыть</button></div>
+</div>
+<div class="show-scene" id="showHost"></div>
+<div class="show-bottom">
+<button class="navbtn" id="showPrev" type="button" aria-label="Предыдущее сочетание"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
+<div class="show-mid"><div class="show-strip" id="showStrip"></div><span class="show-count" id="showCount"></span></div>
+<button class="navbtn" id="showNext" type="button" aria-label="Следующее сочетание"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>
+</div>
+</div>
+
 <script src="app.js" defer></script>
+</body>
+</html>

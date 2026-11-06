@@ -24,7 +24,8 @@ var SURF=[
  {id:'hob',label:'Плита',classic:[['glass','Чёрное стекло','#1B1C1E'],['graphite','Графит','#4A4D4F'],['steel','Нержавеющая сталь','#B9BCBE'],['white','Белое стекло','#EDEDEA'],['cream','Кремовая','#E8DFC9']],pan:[]},
  {id:'sink',label:'Мойка',classic:[['steel','Нержавеющая сталь','#B9BCBE'],['black','Чёрный композит','#2A2B2D'],['graphite','Графит','#4A4D4F'],['white','Белая керамика','#F1F1EF'],['sand','Песочный композит','#CDBFA6'],['terra','Терракота','#B27A5C']],pan:[]},
  {id:'faucet',label:'Смеситель',classic:[['steel','Хром','#B9BCBE'],['dark','Тёмный','#2B2B2A'],['black','Чёрный матовый','#171717'],['brass','Латунь','#B08D4A'],['gold','Золото сатин','#C9A961'],['bronze','Бронза','#8B6B4A'],['copper','Медь','#B06A4A'],['white','Белый','#F1F1EF']],pan:[]},
- {id:'pendant',label:'Светильники',classic:[['dark','Тёмные','#2B2B2A'],['black','Чёрные матовые','#171717'],['white','Белые','#F1F1EF'],['brass','Латунь','#B08D4A'],['copper','Медь','#B06A4A'],['graphite','Графит','#4A4D4F'],['cream','Кремовые','#E8DFC9']],pan:[]}
+ {id:'pendant',label:'Светильники',classic:[['dark','Тёмные','#2B2B2A'],['black','Чёрные матовые','#171717'],['white','Белые','#F1F1EF'],['brass','Латунь','#B08D4A'],['copper','Медь','#B06A4A'],['graphite','Графит','#4A4D4F'],['cream','Кремовые','#E8DFC9']],pan:[]},
+ {id:'window',label:'Окно',classic:[['white','Белая рама','#F1F1EF'],['dark','Тёмная рама','#2B2B2A'],['graphite','Графит','#4A4D4F'],['oak','Дуб','#B58A5B'],['walnut','Орех','#6B4A33'],['cream','Кремовая','#E8DFC9']],pan:[]}
 ];
 SURF.forEach(function(s){
   s.opts=s.classic.map(function(c){return {id:c[0],name:c[1],hex:c[2]}}).concat(s.pan.map(function(k){return {id:'p-'+k,name:P[k].name,hex:P[k].hex,code:P[k].code,pan:true}}));
@@ -36,7 +37,8 @@ SURF.filter(function(s){return s.id==='plinth'})[0].opts.unshift({id:'tone',name
 ['oven','micro'].forEach(function(id){SURF.filter(function(s){return s.id===id})[0].opts.unshift({id:'tone',name:'В тон фасадов',hex:null,src:'front',f:0})});
 SURF.filter(function(s){return s.id==='hood'})[0].opts.unshift({id:'tone',name:'В тон фасадов',hex:null,src:'front',f:.12});
 SURF.filter(function(s){return s.id==='sink'})[0].opts.unshift({id:'tone',name:'Под столешницу',hex:null,src:'top',f:.1});
-['faucet','pendant'].forEach(function(id){SURF.filter(function(s){return s.id===id})[0].opts.unshift({id:'tone',name:'Как ручки',hex:null,src:'handle',f:0})});
+SURF.filter(function(s){return s.id==='faucet'})[0].opts.unshift({id:'tone',name:'Как мойка',hex:null,src:'sink',f:0});
+SURF.filter(function(s){return s.id==='pendant'})[0].opts.unshift({id:'tone',name:'Как ручки',hex:null,src:'handle',f:0});
 SURF.forEach(function(s){s.opts.push({id:'custom',name:'Свой цвет',hex:null,cust:true})});
 var PRESETS=[
  {name:'Грибной тауп',blurb:'Тёплый серо-коричневый матовый фасад и светлое дерево.',pick:{wall:'vanilla',floor:'warmgray',front:'mushroom',top:'lightoak',tile:'milk',floorTex:'slabs'}},
@@ -54,7 +56,7 @@ var PRESETS=[
  {name:'Графит и Dolphin',blurb:'Тёмные фасады, серый пол Pantone, орех на столешнице.',pick:{wall:'p-cloud',floor:'p-dolphin',front:'graphite',top:'walnut',tile:'p-cloud',tileType:'square',grout:'graphite',body:'graphite',fridge:'black',floorTex:'checker'}},
  {name:'Лофт',blurb:'Бетонные стены и пол, дерево как тёплый акцент.',pick:{wall:'lgray',floor:'concrete',front:'graphite',top:'oak',topTex:'wood',tile:'lgray',tileType:'slab',floorTex:'plain'}}
 ];
-PRESETS.forEach(function(p){p.pick.body=p.pick.body||'tone';p.pick.handle=p.pick.handle||'dark';p.pick.hood=p.pick.hood||'dark';p.pick.hob=p.pick.hob||'glass';p.pick.sink=p.pick.sink||'steel';p.pick.faucet=p.pick.faucet||'tone';p.pick.pendant=p.pick.pendant||'tone';p.pick.topTex=p.pick.topTex||'plain';p.pick.frontTex=p.pick.frontTex||'matte';p.pick.fridge=p.pick.fridge||'steel';p.pick.plinth=p.pick.plinth||'tone';var ap=['steel','white','black','cream'].indexOf(p.pick.fridge)>=0?p.pick.fridge:'steel';p.pick.oven=p.pick.oven||ap;p.pick.micro=p.pick.micro||ap;p.pick.floorTex=p.pick.floorTex||'tile'});
+PRESETS.forEach(function(p){p.pick.body=p.pick.body||'tone';p.pick.handle=p.pick.handle||'dark';p.pick.hood=p.pick.hood||'dark';p.pick.hob=p.pick.hob||'glass';p.pick.sink=p.pick.sink||'steel';p.pick.faucet=p.pick.faucet||'tone';p.pick.pendant=p.pick.pendant||'tone';p.pick.window=p.pick.window||'white';p.pick.topTex=p.pick.topTex||'plain';p.pick.frontTex=p.pick.frontTex||'matte';p.pick.fridge=p.pick.fridge||'steel';p.pick.plinth=p.pick.plinth||'tone';var ap=['steel','white','black','cream'].indexOf(p.pick.fridge)>=0?p.pick.fridge:'steel';p.pick.oven=p.pick.oven||ap;p.pick.micro=p.pick.micro||ap;p.pick.floorTex=p.pick.floorTex||'tile'});
 var TYPES=[['subway','Кабанчик','Классика'],['subv','Кабанчик вертикально','Вертикально'],['herring','Ёлочка','Зигзаг'],['square','Квадратная','Сетка'],['hex','Шестигранник','Соты'],['mosaic','Мозаика','Мелкая'],['slab','Сплошная панель','Без швов'],['match','В цвет столешницы','Сплошная']];
 var TOPTEX=[['plain','Однотонная','Гладкая'],['wood','Дерево','Волокна'],['marble','Мрамор','Прожилки'],['speckle','Крапинка','Гранит']];
 var FRONTTEX=[['matte','Матовый','Гладкий'],['gloss','Глянец','Блик'],['wood','Шпон','Дерево'],['fluted','Рифлёный','Рейки']];
@@ -63,7 +65,7 @@ var GROUTS=[['tone','В тон плитки',null],['white','Белый','#FFFFF
 function shade(hex,f){var n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255;function c(v){return Math.round(v*(1-f))}return '#'+((1<<24)+(c(r)<<16)+(c(g)<<8)+c(b)).toString(16).slice(1).toUpperCase()}
 function baseTileHex(){return find('tile',sel.tile).hex}
 function topHex(){return find('top',sel.top).hex}
-function rowHidden(id){return (id==='pendant'&&!sel.pendOn)||(id==='fridge'&&!sel.fridgeOn)||((id==='oven'||id==='micro')&&!sel.colOn)}
+function rowHidden(id){return (id==='window'&&!sel.winOn)||(id==='pendant'&&!sel.pendOn)||(id==='fridge'&&!sel.fridgeOn)||((id==='oven'||id==='micro')&&!sel.colOn)}
 function floorHex(){return find('floor',sel.floor).hex}
 function floorTexName(){return FLOORTEX.filter(function(t){return t[0]===sel.floorTex})[0][1]}
 function isSolid(){return sel.tileType==='slab'||sel.tileType==='match'}
@@ -77,12 +79,14 @@ function resolveHex(sid,oid,pick){var o=rawOpt(sid,oid);if(o.cust)return custom[
 function find(sid,oid){var o=rawOpt(sid,oid);if(!o)return o;return (o.src||o.cust)?{id:o.id,name:o.name,hex:resolveHex(sid,oid,sel)}:o}
 var scene=document.getElementById('scene'),grid=document.getElementById('grid'),tabs=document.getElementById('tabs'),presetsEl=document.getElementById('presets'),sumlist=document.getElementById('sumlist'),msg=document.getElementById('msg');
 var sel={},custom={};
-SURF.forEach(function(s){sel[s.id]=PRESETS[0].pick[s.id]});sel.tileType='subway';sel.grout='tone';sel.floorTex=PRESETS[0].pick.floorTex;sel.topTex=PRESETS[0].pick.topTex;sel.frontTex=PRESETS[0].pick.frontTex;sel.fridgeOn=true;sel.colOn=true;sel.pendOn=true;sel.ledOn=true;
+SURF.forEach(function(s){sel[s.id]=PRESETS[0].pick[s.id]});sel.tileType='subway';sel.grout='tone';sel.floorTex=PRESETS[0].pick.floorTex;sel.topTex=PRESETS[0].pick.topTex;sel.frontTex=PRESETS[0].pick.frontTex;sel.fridgeOn=true;sel.colOn=true;sel.pendOn=true;sel.ledOn=true;sel.winOn=true;sel.winSide='left';
 SURF.forEach(function(s){custom[s.id]=resolveHex(s.id,sel[s.id],sel)});custom.grout=shade(tileHex(),.2);
-try{
-  var saved=JSON.parse(localStorage.getItem('kitchen-fitting-sel')||'null');
-  if(saved){SURF.forEach(function(s){if(saved[s.id]&&find(s.id,saved[s.id]))sel[s.id]=saved[s.id]});if(TYPES.some(function(t){return t[0]===saved.tileType}))sel.tileType=saved.tileType;if(saved.grout==='custom'||GROUTS.some(function(g){return g[0]===saved.grout}))sel.grout=saved.grout;if(FLOORTEX.some(function(t){return t[0]===saved.floorTex}))sel.floorTex=saved.floorTex;['fridgeOn','colOn','pendOn','ledOn'].forEach(function(k){if(typeof saved[k]==='boolean')sel[k]=saved[k]});if(TOPTEX.some(function(t){return t[0]===saved.topTex}))sel.topTex=saved.topTex;if(FRONTTEX.some(function(t){return t[0]===saved.frontTex}))sel.frontTex=saved.frontTex;if(saved.custom){Object.keys(custom).forEach(function(k){if(/^#[0-9a-fA-F]{6}$/.test(saved.custom[k]))custom[k]=saved.custom[k]})}}
-}catch(e){}
+function loadState(saved){
+  if(!saved||typeof saved!=='object')return;
+  SURF.forEach(function(s){if(saved[s.id]&&find(s.id,saved[s.id]))sel[s.id]=saved[s.id]});if(TYPES.some(function(t){return t[0]===saved.tileType}))sel.tileType=saved.tileType;if(saved.grout==='custom'||GROUTS.some(function(g){return g[0]===saved.grout}))sel.grout=saved.grout;if(FLOORTEX.some(function(t){return t[0]===saved.floorTex}))sel.floorTex=saved.floorTex;['fridgeOn','colOn','pendOn','ledOn','winOn'].forEach(function(k){if(typeof saved[k]==='boolean')sel[k]=saved[k]});if(TOPTEX.some(function(t){return t[0]===saved.topTex}))sel.topTex=saved.topTex;if(FRONTTEX.some(function(t){return t[0]===saved.frontTex}))sel.frontTex=saved.frontTex;if(saved.custom){Object.keys(custom).forEach(function(k){if(/^#[0-9a-fA-F]{6}$/.test(saved.custom[k]))custom[k]=saved.custom[k]})}
+  if(saved.winSide==='left'||saved.winSide==='right')sel.winSide=saved.winSide;
+}
+try{loadState(JSON.parse(localStorage.getItem('kitchen-fitting-sel')||'null'))}catch(e){}
 var active='wall';
 function cur(){return SURF.filter(function(s){return s.id===active})[0]}
 
@@ -107,7 +111,7 @@ function setTab(id,focus){
   if(focus){var t=tabs.querySelector('[data-id="'+id+'"]');if(t)t.focus()}
 }
 function renderGrid(){
-  var s=cur();grid.innerHTML='';if(s.id==='fridge')renderToggle('Показывать холодильник','fridgeOn');if(s.id==='oven'||s.id==='micro')renderToggle('Показывать колонну с духовкой и микроволновкой','colOn');if(s.id==='floor')renderFloorGroup();if(s.id==='top')renderTexGroup('Фактура столешницы',TOPTEX,'topTex','toptex','top');if(s.id==='front')renderTexGroup('Фактура фасадов',FRONTTEX,'frontTex','fronttex','front');if(s.id==='pendant'){renderToggle('Подвесные светильники','pendOn');renderToggle('Подсветка под шкафами','ledOn')}if(s.id==='tile'){renderTypeGroup();var mn=el('p','note','Фартук берёт цвет столешницы. Цвет плитки ниже начнёт действовать, если выбрать другой тип.');mn.id='matchNote';mn.hidden=sel.tileType!=='match';grid.appendChild(mn)}
+  var s=cur();grid.innerHTML='';if(s.id==='fridge')renderToggle('Показывать холодильник','fridgeOn');if(s.id==='oven'||s.id==='micro')renderToggle('Показывать колонну с духовкой и микроволновкой','colOn');if(s.id==='floor')renderFloorGroup();if(s.id==='top')renderTexGroup('Фактура столешницы',TOPTEX,'topTex','toptex','top');if(s.id==='front')renderTexGroup('Фактура фасадов',FRONTTEX,'frontTex','fronttex','front');if(s.id==='window'){renderToggle('Показывать окно','winOn');renderSideGroup()}if(s.id==='pendant'){renderToggle('Подвесные светильники','pendOn');renderToggle('Подсветка под шкафами','ledOn')}if(s.id==='tile'){renderTypeGroup();var mn=el('p','note','Фартук берёт цвет столешницы. Цвет плитки ниже начнёт действовать, если выбрать другой тип.');mn.id='matchNote';mn.hidden=sel.tileType!=='match';grid.appendChild(mn)}
   [['Классика',s.opts.filter(function(o){return !o.pan&&!o.cust})],['Pantone в тренде',s.opts.filter(function(o){return o.pan})]].forEach(function(g){
     var box=el('div','group');box.appendChild(el('div','gh',s.id==='tile'?'Цвет плитки · '+g[0]:g[0]));
     var row=el('div','chips');
@@ -161,6 +165,12 @@ function renderTexGroup(title,list,key,kind,sid){
     row.appendChild(b);
   });
   box.appendChild(row);grid.appendChild(box);
+}
+function renderSideGroup(){
+  var box=el('div','group');box.appendChild(el('div','gh','Положение окна'));
+  var sg=el('div','seg');
+  [['left','Слева'],['right','Справа']].forEach(function(t){var b=el('button',null,t[1]);b.type='button';b.dataset.side=t[0];b.setAttribute('aria-pressed',String(sel.winSide===t[0]));b.onclick=function(){sel.winSide=t[0];apply()};sg.appendChild(b)});
+  box.appendChild(sg);grid.appendChild(box);
 }
 function renderCustomGroup(s){
   var box=el('div','group');box.appendChild(el('div','gh','Свой цвет'));
@@ -252,7 +262,7 @@ function apply(){
   var gx=groutHex();
   document.querySelectorAll('#sceneSvg .gp').forEach(function(p){p.setAttribute('stroke',gx);p.setAttribute('stroke-opacity','1');p.setAttribute('stroke-width','1')});
   document.getElementById('tileov').setAttribute('fill',sel.tileType==='match'?texFill('top'):isSolid()?'none':'url(#pat-'+sel.tileType+')');
-  dsp('pendG',sel.pendOn);dsp('glowPend',sel.pendOn);dsp('ledG',sel.ledOn);dsp('glowLed',sel.ledOn);
+  dsp('winG',sel.winOn);document.getElementById('winG').setAttribute('transform',sel.winSide==='right'?'translate(900 0) scale(-1 1)':'');grid.querySelectorAll('[data-side]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.side===sel.winSide))});dsp('pendG',sel.pendOn);dsp('glowPend',sel.pendOn);dsp('ledG',sel.ledOn);dsp('glowLed',sel.ledOn);
   TEXOV.forEach(function(n){n.setAttribute('fill',texFill(n.dataset.tx))});
   grid.querySelectorAll('.txfill').forEach(function(r){r.setAttribute('fill',find(r.dataset.sid,sel[r.dataset.sid]).hex)});
   grid.querySelectorAll('.tvfill').forEach(function(r){r.setAttribute('fill',r.dataset.t==='match'?topHex():baseTileHex())});
@@ -267,7 +277,8 @@ function apply(){
   renderSummary();renderWarn();record();
   try{localStorage.setItem('kitchen-fitting-sel',JSON.stringify(Object.assign({custom:custom},sel)))}catch(e){}
 }
-function say(t){msg.textContent=t;clearTimeout(say.t);say.t=setTimeout(function(){msg.textContent=''},3000)}
+var barMsg=document.getElementById('barMsg');
+function say(t){msg.textContent=t;barMsg.textContent=t;clearTimeout(say.t);say.t=setTimeout(function(){msg.textContent='';barMsg.textContent=''},3000)}
 document.getElementById('copy').onclick=function(){
   var text=SURF.filter(function(s){return !rowHidden(s.id)}).map(function(s){var o=find(s.id,sel[s.id]);if(s.id==='tile'&&sel.tileType==='match')o={name:'В цвет столешницы',hex:topHex()};return s.label+': '+o.name+(o.pan?' (Pantone '+o.code+')':'')+', '+o.hex+(s.id==='floor'?', фактура: '+floorTexName():'')+(s.id==='top'?', фактура: '+texName(TOPTEX,sel.topTex):'')+(s.id==='front'?', фактура: '+texName(FRONTTEX,sel.frontTex):'')+(s.id==='tile'?', укладка: '+typeName()+(isSolid()?'':', шов: '+groutName().toLowerCase()+' '+groutHex()):'')}).join('\n');
   var fallback=function(){var r=document.createRange();r.selectNodeContents(sumlist);var g=window.getSelection();g.removeAllRanges();g.addRange(r);say('Список выделен, нажмите Ctrl+C')};
@@ -293,24 +304,78 @@ function setZoom(on){
   zoomBtn.focus();
 }
 document.getElementById('sceneSvg').addEventListener('click',function(e){
-  if(scene.classList.contains('zoomed'))return;
+  if(scene.classList.contains('zoomed')||document.body.classList.contains('presenting'))return;
   var g=e.target.closest('[data-s]');if(g)setTab(g.dataset.s);
 });
 zoomBtn.addEventListener('click',function(e){e.stopPropagation();setZoom(!scene.classList.contains('zoomed'))});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')setZoom(false)});
+var show=document.getElementById('show'),showHost=document.getElementById('showHost'),showPh=null,showSnap=null,showI=0,showOpen=false;
+var showBtn=document.getElementById('showBtn');
+function loadSnap(str){
+  var d=JSON.parse(str);
+  Object.keys(d.sel).forEach(function(k){sel[k]=d.sel[k]});
+  Object.keys(d.custom).forEach(function(k){custom[k]=d.custom[k]});
+  apply();
+}
+function showGo(i){
+  var n=PRESETS.length+1;showI=(i+n)%n;
+  var name,blurb;
+  if(showI===0){loadSnap(showSnap);name='Текущий выбор';blurb='Сочетание, собранное в редакторе.'}
+  else{var p=PRESETS[showI-1];SURF.forEach(function(s){sel[s.id]=p.pick[s.id]});sel.tileType=p.pick.tileType||'subway';sel.grout=p.pick.grout||'tone';sel.floorTex=p.pick.floorTex;sel.topTex=p.pick.topTex;sel.frontTex=p.pick.frontTex;apply();name=p.name;blurb=p.blurb}
+  document.getElementById('showName').textContent=name;document.getElementById('showBlurb').textContent=blurb;
+  document.getElementById('showCount').textContent=(showI+1)+' / '+n;
+  var st=document.getElementById('showStrip');st.innerHTML='';
+  ['wall','floor','front','top','tile','handle'].forEach(function(id){var d=document.createElement('i');d.style.background=resolveHex(id,sel[id],sel);st.appendChild(d)});
+}
+function openShow(){
+  if(showOpen)return;
+  if(scene.classList.contains('zoomed'))setZoom(false);
+  showSnap=snap();restoring=true;showOpen=true;
+  showPh=document.createComment('scene');scene.parentNode.insertBefore(showPh,scene);showHost.appendChild(scene);
+  show.hidden=false;document.body.classList.add('zooming','presenting');
+  showGo(0);document.getElementById('showClose').focus();
+}
+function closeShow(keep){
+  if(!showOpen)return;
+  if(keep){restoring=false;apply()}else{loadSnap(showSnap);restoring=false}
+  showPh.parentNode.insertBefore(scene,showPh);showPh.parentNode.removeChild(showPh);showPh=null;
+  show.hidden=true;document.body.classList.remove('zooming','presenting');showOpen=false;
+  if(keep)say('Сочетание сохранено в редакторе');
+  showBtn.focus();
+}
+showBtn.onclick=openShow;
+document.getElementById('showClose').onclick=function(){closeShow(false)};
+document.getElementById('showKeep').onclick=function(){closeShow(true)};
+document.getElementById('showPrev').onclick=function(){showGo(showI-1)};
+document.getElementById('showNext').onclick=function(){showGo(showI+1)};
+document.addEventListener('keydown',function(e){
+  if(!showOpen)return;
+  if(e.key==='ArrowLeft'){e.preventDefault();showGo(showI-1)}
+  else if(e.key==='ArrowRight'){e.preventDefault();showGo(showI+1)}
+  else if(e.key==='Escape'){closeShow(false)}
+});
+(function(){
+  var x0=null,y0=0;
+  showHost.addEventListener('touchstart',function(e){var t=e.touches[0];x0=t.clientX;y0=t.clientY},{passive:true});
+  showHost.addEventListener('touchend',function(e){
+    if(x0===null)return;var t=e.changedTouches[0],dx=t.clientX-x0,dy=t.clientY-y0;x0=null;
+    if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)showGo(showI+(dx<0?1:-1));
+  },{passive:true});
+})();
+
 var LIGHTS=[
- {id:'day',name:'День',tint:'#FFFFFF',ta:0,va:0,glow:0},
- {id:'morning',name:'Утро',tint:'#CFE0FA',ta:.4,va:0,glow:0},
- {id:'evening',name:'Вечер',tint:'#F5B27A',ta:.45,va:.22,glow:.7},
- {id:'lamp',name:'Лампа',tint:'#FFC97A',ta:.5,va:.36,glow:1}
+ {id:'day',name:'День',tint:'#FFFFFF',ta:0,va:0,glow:0,sky:'#CFE6F5'},
+ {id:'morning',name:'Утро',tint:'#CFE0FA',ta:.4,va:0,glow:0,sky:'#E4EEF9'},
+ {id:'evening',name:'Вечер',tint:'#EBBFB4',ta:.34,va:.2,glow:.7,sky:'#F1B27E'},
+ {id:'lamp',name:'Лампа',tint:'#FFC97A',ta:.5,va:.36,glow:1,sky:'#26354F'}
 ];
 var light='day';
 try{var svl=localStorage.getItem('kitchen-fitting-light');if(LIGHTS.some(function(l){return l.id===svl}))light=svl}catch(e){}
 var glowRoot=document.getElementById('glowG'),lightSeg=document.getElementById('lightSeg'),lightTint=document.getElementById('lightTint'),lightVig=document.getElementById('lightVig');
 function setLight(id,save){
   light=id;var L=LIGHTS.filter(function(l){return l.id===id})[0];
-  lightTint.setAttribute('fill',L.tint);glowRoot.setAttribute('opacity',L.glow);glowRoot.setAttribute('display',L.glow?'inline':'none');document.querySelectorAll('.ledstrip').forEach(function(n){n.setAttribute('fill',L.glow?'#FFF1C9':'#D8D3C8')});lightTint.setAttribute('fill-opacity',L.ta);lightVig.setAttribute('fill-opacity',L.va);
-  lightSeg.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.l===id))});
+  lightTint.setAttribute('fill',L.tint);document.querySelectorAll('.winglass').forEach(function(n){n.setAttribute('fill',L.sky)});glowRoot.setAttribute('opacity',L.glow);glowRoot.setAttribute('display',L.glow?'inline':'none');document.querySelectorAll('.ledstrip').forEach(function(n){n.setAttribute('fill',L.glow?'#FFF1C9':'#D8D3C8')});lightTint.setAttribute('fill-opacity',L.ta);lightVig.setAttribute('fill-opacity',L.va);
+  document.querySelectorAll('button[data-l]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.l===id))});
   if(save){try{localStorage.setItem('kitchen-fitting-light',id)}catch(e){}}
 }
 LIGHTS.forEach(function(l){var b=el('button',null,l.name);b.type='button';b.dataset.l=l.id;b.onclick=function(){setLight(l.id,true)};lightSeg.appendChild(b)});
@@ -323,7 +388,7 @@ function lab(hex){
   return [116*f(y)-16,500*(f(x)-f(y)),200*(f(y)-f(z))];
 }
 function dE(a,b){var p=lab(a),q=lab(b);return Math.sqrt(Math.pow(p[0]-q[0],2)+Math.pow(p[1]-q[1],2)+Math.pow(p[2]-q[2],2))}
-var PAIRS=[['wall','front','Стены и фасады',12],['wall','floor','Стены и пол',5],['floor','plinth','Пол и цоколь',12],['front','handle','Ручки и фасады',14],['top','tile','Столешница и фартук',4],['wall','fridge','Холодильник и стены',4],['wall','hood','Вытяжка и стены',8],['tile','faucet','Смеситель и фартук',14],['top','sink','Мойка и столешница',6],['top','hob','Плита и столешница',10]];
+var PAIRS=[['wall','front','Стены и фасады',12],['wall','floor','Стены и пол',5],['floor','plinth','Пол и цоколь',12],['front','handle','Ручки и фасады',14],['top','tile','Столешница и фартук',4],['wall','fridge','Холодильник и стены',4],['wall','hood','Вытяжка и стены',8],['tile','faucet','Смеситель и фартук',8],['top','sink','Мойка и столешница',6],['top','hob','Плита и столешница',10]];
 function hexOf(p,id){if(id==='tile'&&p.tileType==='match')id='top';return resolveHex(id,p[id],p)}
 function problems(p){
   return PAIRS.filter(function(x){
@@ -407,7 +472,7 @@ if(['system','light','dark'].indexOf(th)<0)th='system';
 setTheme(th,false);
 renderTabs();renderGrid();renderPresets();apply();
 tabs.addEventListener('wheel',function(e){var max=tabs.scrollWidth-tabs.clientWidth;if(max<=0||Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;var n=tabs.scrollLeft+e.deltaY;if(n<0||n>max)return;tabs.scrollLeft=n;e.preventDefault()},{passive:false});
-var SECRET={tolik:{wall:'greige',floor:'warmgray',front:'sage',handle:'dark',body:'tone',plinth:'tone',top:'oak',tile:'white',fridge:'steel',tileType:'subway',grout:'tone',oven:'steel',micro:'steel',hood:'dark',hob:'glass',sink:'steel',faucet:'tone',pendant:'tone',floorTex:'tile',topTex:'plain',frontTex:'matte'}};
+var SECRET={tolik:{wall:'greige',floor:'warmgray',front:'sage',handle:'dark',body:'tone',plinth:'tone',top:'oak',tile:'white',fridge:'steel',tileType:'subway',grout:'tone',oven:'steel',micro:'steel',hood:'dark',hob:'glass',sink:'steel',faucet:'tone',pendant:'tone',window:'white',floorTex:'tile',topTex:'plain',frontTex:'matte'}};
 function checkSecret(){
   var key='';
   try{key=new URLSearchParams(location.search).get('get')||''}catch(e){}
@@ -419,6 +484,24 @@ function checkSecret(){
   sel.tileType=p.tileType;sel.grout=p.grout;sel.floorTex=p.floorTex;sel.topTex=p.topTex;sel.frontTex=p.frontTex;
   apply();
 }
+function b64e(t){return btoa(unescape(encodeURIComponent(t))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function b64d(t){t=t.replace(/-/g,'+').replace(/_/g,'/');while(t.length%4)t+='=';return decodeURIComponent(escape(atob(t)))}
+function shareUrl(){
+  var c={};Object.keys(custom).forEach(function(k){if(sel[k]==='custom')c[k]=custom[k]});
+  var o=Object.assign({},sel,{custom:c,light:light});
+  return location.href.split('#')[0]+'#s='+b64e(JSON.stringify(o));
+}
+function applyHash(){
+  var h=location.hash||'';if(h.indexOf('#s=')!==0)return;
+  try{var o=JSON.parse(b64d(h.slice(3)));loadState(o);if(LIGHTS.some(function(l){return l.id===o.light}))setLight(o.light,true);apply()}catch(e){}
+}
+document.getElementById('share').onclick=function(){
+  var url=shareUrl(),box=document.getElementById('shareBox');
+  var fallback=function(){box.hidden=false;box.value=url;box.focus();box.select();say('Скопируйте ссылку из поля ниже')};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){box.hidden=true;say('Ссылка скопирована')},fallback)}else{fallback()}
+};
+LIGHTS.forEach(function(l){var b=el('button',null,l.name);b.type='button';b.dataset.l=l.id;b.setAttribute('aria-pressed',String(l.id===light));b.onclick=function(){setLight(l.id,true)};document.getElementById('showLight').appendChild(b)});
 checkSecret();
-window.addEventListener('hashchange',checkSecret);
+applyHash();
+window.addEventListener('hashchange',function(){checkSecret();applyHash()});
 })();
