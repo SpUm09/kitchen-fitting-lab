@@ -65,7 +65,7 @@ var GROUTS=[['tone','В тон плитки',null],['white','Белый','#FFFFF
 function shade(hex,f){var n=parseInt(hex.slice(1),16),r=n>>16&255,g=n>>8&255,b=n&255;function c(v){return Math.round(v*(1-f))}return '#'+((1<<24)+(c(r)<<16)+(c(g)<<8)+c(b)).toString(16).slice(1).toUpperCase()}
 function baseTileHex(){return find('tile',sel.tile).hex}
 function topHex(){return find('top',sel.top).hex}
-function rowHidden(id){return (id==='window'&&!sel.winOn)||(id==='pendant'&&!sel.pendOn)||(id==='fridge'&&!sel.fridgeOn)||((id==='oven'||id==='micro')&&!sel.colOn)}
+function rowHidden(id){return (id==='hood'&&!sel.hoodOn)||(id==='window'&&!sel.winOn)||(id==='pendant'&&!sel.pendOn)||(id==='fridge'&&!sel.fridgeOn)||((id==='oven'||id==='micro')&&!sel.colOn)}
 function floorHex(){return find('floor',sel.floor).hex}
 function floorTexName(){return FLOORTEX.filter(function(t){return t[0]===sel.floorTex})[0][1]}
 function isSolid(){return sel.tileType==='slab'||sel.tileType==='match'}
@@ -79,11 +79,11 @@ function resolveHex(sid,oid,pick){var o=rawOpt(sid,oid);if(o.cust)return custom[
 function find(sid,oid){var o=rawOpt(sid,oid);if(!o)return o;return (o.src||o.cust)?{id:o.id,name:o.name,hex:resolveHex(sid,oid,sel)}:o}
 var scene=document.getElementById('scene'),grid=document.getElementById('grid'),tabs=document.getElementById('tabs'),presetsEl=document.getElementById('presets'),sumlist=document.getElementById('sumlist'),msg=document.getElementById('msg');
 var sel={},custom={};
-SURF.forEach(function(s){sel[s.id]=PRESETS[0].pick[s.id]});sel.tileType='subway';sel.grout='tone';sel.floorTex=PRESETS[0].pick.floorTex;sel.topTex=PRESETS[0].pick.topTex;sel.frontTex=PRESETS[0].pick.frontTex;sel.fridgeOn=true;sel.colOn=true;sel.pendOn=true;sel.ledOn=true;sel.winOn=true;sel.winSide='left';
+SURF.forEach(function(s){sel[s.id]=PRESETS[0].pick[s.id]});sel.tileType='subway';sel.grout='tone';sel.floorTex=PRESETS[0].pick.floorTex;sel.topTex=PRESETS[0].pick.topTex;sel.frontTex=PRESETS[0].pick.frontTex;sel.fridgeOn=true;sel.colOn=true;sel.pendOn=true;sel.ledOn=true;sel.winOn=true;sel.winSide='left';sel.hoodOn=true;
 SURF.forEach(function(s){custom[s.id]=resolveHex(s.id,sel[s.id],sel)});custom.grout=shade(tileHex(),.2);
 function loadState(saved){
   if(!saved||typeof saved!=='object')return;
-  SURF.forEach(function(s){if(saved[s.id]&&find(s.id,saved[s.id]))sel[s.id]=saved[s.id]});if(TYPES.some(function(t){return t[0]===saved.tileType}))sel.tileType=saved.tileType;if(saved.grout==='custom'||GROUTS.some(function(g){return g[0]===saved.grout}))sel.grout=saved.grout;if(FLOORTEX.some(function(t){return t[0]===saved.floorTex}))sel.floorTex=saved.floorTex;['fridgeOn','colOn','pendOn','ledOn','winOn'].forEach(function(k){if(typeof saved[k]==='boolean')sel[k]=saved[k]});if(TOPTEX.some(function(t){return t[0]===saved.topTex}))sel.topTex=saved.topTex;if(FRONTTEX.some(function(t){return t[0]===saved.frontTex}))sel.frontTex=saved.frontTex;if(saved.custom){Object.keys(custom).forEach(function(k){if(/^#[0-9a-fA-F]{6}$/.test(saved.custom[k]))custom[k]=saved.custom[k]})}
+  SURF.forEach(function(s){if(saved[s.id]&&find(s.id,saved[s.id]))sel[s.id]=saved[s.id]});if(TYPES.some(function(t){return t[0]===saved.tileType}))sel.tileType=saved.tileType;if(saved.grout==='custom'||GROUTS.some(function(g){return g[0]===saved.grout}))sel.grout=saved.grout;if(FLOORTEX.some(function(t){return t[0]===saved.floorTex}))sel.floorTex=saved.floorTex;['fridgeOn','colOn','pendOn','ledOn','winOn','hoodOn'].forEach(function(k){if(typeof saved[k]==='boolean')sel[k]=saved[k]});if(TOPTEX.some(function(t){return t[0]===saved.topTex}))sel.topTex=saved.topTex;if(FRONTTEX.some(function(t){return t[0]===saved.frontTex}))sel.frontTex=saved.frontTex;if(saved.custom){Object.keys(custom).forEach(function(k){if(/^#[0-9a-fA-F]{6}$/.test(saved.custom[k]))custom[k]=saved.custom[k]})}
   if(saved.winSide==='left'||saved.winSide==='right')sel.winSide=saved.winSide;
 }
 try{loadState(JSON.parse(localStorage.getItem('kitchen-fitting-sel')||'null'))}catch(e){}
@@ -111,7 +111,7 @@ function setTab(id,focus){
   if(focus){var t=tabs.querySelector('[data-id="'+id+'"]');if(t)t.focus()}
 }
 function renderGrid(){
-  var s=cur();grid.innerHTML='';if(s.id==='fridge')renderToggle('Показывать холодильник','fridgeOn');if(s.id==='oven'||s.id==='micro')renderToggle('Показывать колонну с духовкой и микроволновкой','colOn');if(s.id==='floor')renderFloorGroup();if(s.id==='top')renderTexGroup('Фактура столешницы',TOPTEX,'topTex','toptex','top');if(s.id==='front')renderTexGroup('Фактура фасадов',FRONTTEX,'frontTex','fronttex','front');if(s.id==='window'){renderToggle('Показывать окно','winOn');renderSideGroup()}if(s.id==='pendant'){renderToggle('Подвесные светильники','pendOn');renderToggle('Подсветка под шкафами','ledOn')}if(s.id==='tile'){renderTypeGroup();var mn=el('p','note','Фартук берёт цвет столешницы. Цвет плитки ниже начнёт действовать, если выбрать другой тип.');mn.id='matchNote';mn.hidden=sel.tileType!=='match';grid.appendChild(mn)}
+  var s=cur();grid.innerHTML='';if(s.id==='fridge')renderToggle('Показывать холодильник','fridgeOn');if(s.id==='oven'||s.id==='micro')renderToggle('Показывать колонну с духовкой и микроволновкой','colOn');if(s.id==='floor')renderFloorGroup();if(s.id==='top')renderTexGroup('Фактура столешницы',TOPTEX,'topTex','toptex','top');if(s.id==='front')renderTexGroup('Фактура фасадов',FRONTTEX,'frontTex','fronttex','front');if(s.id==='hood')renderToggle('Показывать вытяжку','hoodOn');if(s.id==='window'){renderToggle('Показывать окно','winOn');renderSideGroup()}if(s.id==='pendant'){renderToggle('Подвесные светильники','pendOn');renderToggle('Подсветка под шкафами','ledOn')}if(s.id==='tile'){renderTypeGroup();var mn=el('p','note','Фартук берёт цвет столешницы. Цвет плитки ниже начнёт действовать, если выбрать другой тип.');mn.id='matchNote';mn.hidden=sel.tileType!=='match';grid.appendChild(mn)}
   [['Классика',s.opts.filter(function(o){return !o.pan&&!o.cust})],['Pantone в тренде',s.opts.filter(function(o){return o.pan})]].forEach(function(g){
     var box=el('div','group');box.appendChild(el('div','gh',s.id==='tile'?'Цвет плитки · '+g[0]:g[0]));
     var row=el('div','chips');
@@ -262,7 +262,7 @@ function apply(){
   var gx=groutHex();
   document.querySelectorAll('#sceneSvg .gp').forEach(function(p){p.setAttribute('stroke',gx);p.setAttribute('stroke-opacity','1');p.setAttribute('stroke-width','1')});
   document.getElementById('tileov').setAttribute('fill',sel.tileType==='match'?texFill('top'):isSolid()?'none':'url(#pat-'+sel.tileType+')');
-  dsp('winG',sel.winOn);document.getElementById('winG').setAttribute('transform',sel.winSide==='right'?'translate(900 0) scale(-1 1)':'');grid.querySelectorAll('[data-side]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.side===sel.winSide))});dsp('pendG',sel.pendOn);dsp('glowPend',sel.pendOn);dsp('ledG',sel.ledOn);dsp('glowLed',sel.ledOn);
+  dsp('winG',sel.winOn);dsp('hoodG',sel.hoodOn);document.querySelectorAll('.hood-alt').forEach(function(n){n.setAttribute('display',sel.hoodOn?'none':'inline')});document.getElementById('winG').setAttribute('transform',sel.winSide==='right'?'translate(900 0) scale(-1 1)':'');grid.querySelectorAll('[data-side]').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.side===sel.winSide))});dsp('pendG',sel.pendOn);dsp('glowPend',sel.pendOn);dsp('ledG',sel.ledOn);dsp('glowLed',sel.ledOn);
   TEXOV.forEach(function(n){n.setAttribute('fill',texFill(n.dataset.tx))});
   grid.querySelectorAll('.txfill').forEach(function(r){r.setAttribute('fill',find(r.dataset.sid,sel[r.dataset.sid]).hex)});
   grid.querySelectorAll('.tvfill').forEach(function(r){r.setAttribute('fill',r.dataset.t==='match'?topHex():baseTileHex())});
@@ -394,6 +394,7 @@ function problems(p){
   return PAIRS.filter(function(x){
     if(x[0]==='tile'||x[1]==='tile'){if(p.tileType==='match')return false}
     if((x[0]==='fridge'||x[1]==='fridge')&&!p.fridgeOn)return false;
+    if((x[0]==='hood'||x[1]==='hood')&&!p.hoodOn)return false;
     return dE(hexOf(p,x[0]),hexOf(p,x[1]))<x[3];
   }).map(function(x){return {name:x[2]}});
 }

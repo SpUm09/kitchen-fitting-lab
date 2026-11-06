@@ -104,12 +104,15 @@
 <rect x="126" y="141" width="20" height="3"/><rect x="203" y="141" width="20" height="3"/><rect x="456" y="141" width="20" height="3"/><rect x="533" y="141" width="20" height="3"/>
 <rect x="148" y="212" width="20" height="3"/><rect x="269" y="212" width="20" height="3"/><rect x="380" y="213" width="40" height="3"/><rect x="380" y="242" width="40" height="3"/><rect x="380" y="271" width="40" height="3"/><rect x="511" y="212" width="20" height="3"/>
 </g>
-<g data-s="hood">
+<g id="hoodG" data-s="hood">
 <rect x="328" y="30" width="24" height="80" class="hood"/>
 <rect x="328" y="30" width="24" height="80" fill="#fff" fill-opacity=".08"/>
 <polygon points="272,150 408,150 382,108 298,108" class="hood"/>
 <polygon points="272,150 408,150 404,143 276,143" fill="#fff" fill-opacity=".16"/>
 </g>
+<g data-s="body" class="hood-alt" display="none" stroke="#000" stroke-opacity=".2"><rect x="252" y="48" width="176" height="104" class="carc"/></g>
+<g data-s="front" class="hood-alt" display="none" stroke="#000" stroke-opacity=".14"><rect x="254" y="50" width="84" height="100" rx="2" class="front"/><rect x="342" y="50" width="84" height="100" rx="2" class="front"/></g>
+<g data-s="handle" class="handle hood-alt" display="none"><rect x="286" y="141" width="20" height="3"/><rect x="374" y="141" width="20" height="3"/></g>
 <g data-s="top">
 <rect x="94" y="192" width="492" height="14" class="top"/>
 <rect x="94" y="192" width="492" height="4" fill="#fff" fill-opacity=".2"/>
@@ -162,11 +165,11 @@
 <g data-s="plinth"><rect x="96" y="292" width="100" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/></g>
 <rect x="96" y="300" width="100" height="7" fill="#000" fill-opacity=".14"/>
 </g>
-<g id="ledG" pointer-events="none"><rect class="ledstrip" x="200" y="151" width="150" height="2.4" rx="1" fill="#D8D3C8"/><rect class="ledstrip" x="530" y="151" width="150" height="2.4" rx="1" fill="#D8D3C8"/></g>
+<g id="ledG" pointer-events="none"><rect class="ledstrip" x="200" y="151" width="150" height="2.4" rx="1" fill="#D8D3C8"/><rect class="ledstrip" x="530" y="151" width="150" height="2.4" rx="1" fill="#D8D3C8"/><rect class="ledstrip hood-alt" display="none" x="352" y="151" width="176" height="2.4" rx="1" fill="#D8D3C8"/></g>
 <g id="pendG" data-s="pendant"><line x1="290" y1="0" x2="290" y2="84" stroke="#222" stroke-width="1.2"/><path d="M273 108Q273 86 290 86Q307 86 307 108Z" class="pend" stroke="#000" stroke-opacity=".25"/><ellipse cx="290" cy="108" rx="11" ry="2.6" fill="#F4EBD0"/><line x1="440" y1="0" x2="440" y2="84" stroke="#222" stroke-width="1.2"/><path d="M423 108Q423 86 440 86Q457 86 457 108Z" class="pend" stroke="#000" stroke-opacity=".25"/><ellipse cx="440" cy="108" rx="11" ry="2.6" fill="#F4EBD0"/><line x1="590" y1="0" x2="590" y2="84" stroke="#222" stroke-width="1.2"/><path d="M573 108Q573 86 590 86Q607 86 607 108Z" class="pend" stroke="#000" stroke-opacity=".25"/><ellipse cx="590" cy="108" rx="11" ry="2.6" fill="#F4EBD0"/></g>
 <g pointer-events="none"><rect id="lightTint" width="900" height="440" fill="#FFFFFF" fill-opacity="0" style="mix-blend-mode:multiply"/><rect id="lightVig" width="900" height="440" fill="url(#lg-vig)" fill-opacity="0"/></g>
 <g id="glowG" display="none" opacity="0" pointer-events="none">
-<g id="glowLed"><rect x="200" y="153" width="150" height="54" fill="url(#lg-led)"/><rect x="530" y="153" width="150" height="54" fill="url(#lg-led)"/></g>
+<g id="glowLed"><rect x="200" y="153" width="150" height="54" fill="url(#lg-led)"/><rect x="530" y="153" width="150" height="54" fill="url(#lg-led)"/><rect class="hood-alt" display="none" x="352" y="153" width="176" height="54" fill="url(#lg-led)"/></g>
 <g id="glowPend"><polygon points="278,108 302,108 340,196 240,196" fill="url(#lg-cone)"/><ellipse cx="290" cy="108" rx="30" ry="18" fill="url(#lg-halo)"/><polygon points="428,108 452,108 490,196 390,196" fill="url(#lg-cone)"/><ellipse cx="440" cy="108" rx="30" ry="18" fill="url(#lg-halo)"/><polygon points="578,108 602,108 640,196 540,196" fill="url(#lg-cone)"/><ellipse cx="590" cy="108" rx="30" ry="18" fill="url(#lg-halo)"/></g>
 </g>
 </svg>
