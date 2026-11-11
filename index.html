@@ -53,6 +53,11 @@
 <pattern id="tx-top-wood" width="200" height="28" patternUnits="userSpaceOnUse"><path d="M0 4Q40 2 80 5T160 4T200 4M0 11Q50 9 100 12T200 11M0 18Q30 20 70 17T140 19T200 18M0 24Q60 22 110 25T200 24" stroke="#000" stroke-opacity=".17" stroke-width=".9" fill="none"/><path d="M0 7Q60 6 120 8T200 7M0 15Q40 14 90 16T200 15" stroke="#fff" stroke-opacity=".13" stroke-width=".9" fill="none"/></pattern>
 <pattern id="tx-top-marble" width="240" height="120" patternUnits="userSpaceOnUse"><path d="M0 20C40 10 60 40 100 30S170 0 240 20" stroke="#000" stroke-opacity=".05" stroke-width="6" fill="none"/><path d="M0 20C40 10 60 40 100 30S170 0 240 20" stroke="#000" stroke-opacity=".28" stroke-width=".9" fill="none"/><path d="M0 70C50 80 80 50 130 62S200 100 240 70" stroke="#000" stroke-opacity=".22" stroke-width=".9" fill="none"/><path d="M60 0C75 30 45 60 70 90S55 110 60 120" stroke="#000" stroke-opacity=".18" stroke-width=".8" fill="none"/><path d="M160 0C150 40 180 60 160 120" stroke="#000" stroke-opacity=".16" stroke-width=".8" fill="none"/><path d="M0 100C30 95 60 110 90 104" stroke="#000" stroke-opacity=".14" stroke-width=".7" fill="none"/></pattern>
 <pattern id="tx-top-speckle" width="60" height="40" patternUnits="userSpaceOnUse"><circle cx="5" cy="6" r="1.2" fill="#000" fill-opacity=".28"/><circle cx="19" cy="14" r=".9" fill="#fff" fill-opacity=".5"/><circle cx="33" cy="5" r="1.4" fill="#000" fill-opacity=".24"/><circle cx="47" cy="12" r=".9" fill="#000" fill-opacity=".3"/><circle cx="11" cy="24" r="1" fill="#fff" fill-opacity=".5"/><circle cx="27" cy="30" r="1.3" fill="#000" fill-opacity=".26"/><circle cx="41" cy="26" r=".8" fill="#fff" fill-opacity=".5"/><circle cx="54" cy="35" r="1.1" fill="#000" fill-opacity=".28"/><circle cx="6" cy="36" r=".8" fill="#000" fill-opacity=".22"/></pattern>
+<linearGradient id="g3-down" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#000" stop-opacity=".32"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+<linearGradient id="g3-right" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity=".2"/><stop offset="1" stop-color="#000" stop-opacity="0"/></linearGradient>
+<linearGradient id="g3-left" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".2"/></linearGradient>
+<linearGradient id="g3-gloss" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#fff" stop-opacity=".13"/></linearGradient>
+<linearGradient id="g3-front" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".13"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".13"/></linearGradient>
 </defs>
 <g data-s="wall">
 <polygon points="0,0 900,0 840,30 60,30" class="wall"/>
@@ -63,6 +68,7 @@
 <polygon points="900,0 840,30 840,300 900,440" class="wall"/>
 <polygon points="900,0 840,30 840,300 900,440" fill="#000" fill-opacity=".1"/>
 </g>
+<g pointer-events="none"><rect x="60" y="30" width="780" height="30" fill="url(#g3-down)" opacity=".5"/><rect x="60" y="30" width="26" height="270" fill="url(#g3-right)"/><rect x="814" y="30" width="26" height="270" fill="url(#g3-left)"/></g>
 <g id="winG" data-s="window">
 <polygon points="8,80 52,78 52,217 8,268" class="win" stroke="#000" stroke-opacity=".25"/>
 <polygon points="12,90 48,88 48,206 12,254" class="winglass" fill="#CFE6F5"/>
@@ -77,12 +83,15 @@
 <g id="fl-horiz" clip-path="url(#fc)" stroke="#000" stroke-opacity=".13" fill="none"><path d="M0 316H900M0 337H900M0 366H900M0 405H900"/></g>
 <polygon id="floorov" points="60,300 840,300 900,440 0,440" fill="none"/>
 </g>
+<g pointer-events="none"><polygon points="60,300 840,300 852.9,330 47.1,330" fill="url(#g3-down)"/><polygon points="60,300 840,300 900,440 0,440" fill="url(#g3-gloss)"/></g>
+<g id="colFace" data-s="body" stroke="#000" stroke-opacity=".2"><polygon points="196,42 208.7,52.4 208.7,298 196,300" class="carc"/><polygon points="196,42 208.7,52.4 208.7,298 196,300" fill="#000" fill-opacity=".28" stroke="none"/></g>
 <g transform="translate(100 0)">
 <g data-s="tile">
 <rect x="100" y="150" width="480" height="44" class="tile"/>
 <rect id="tileov" x="100" y="150" width="480" height="44" fill="url(#pat-subway)"/>
 <rect x="100" y="150" width="480" height="5" fill="#000" fill-opacity=".07"/>
 </g>
+<g pointer-events="none"><rect x="98" y="152" width="154" height="30" fill="url(#g3-down)" opacity=".8"/><rect x="428" y="152" width="154" height="30" fill="url(#g3-down)" opacity=".8"/><rect class="hood-alt" display="none" x="252" y="152" width="176" height="30" fill="url(#g3-down)" opacity=".8"/></g>
 <g data-s="body" stroke="#000" stroke-opacity=".2">
 <rect x="98" y="48" width="154" height="104" class="carc"/>
 <rect x="428" y="48" width="154" height="104" class="carc"/>
@@ -100,6 +109,9 @@
 <rect x="342" y="266" width="117" height="26" rx="2" class="front"/>
 <rect x="465" y="206" width="115" height="86" rx="2" class="front"/>
 </g>
+<g pointer-events="none"><rect x="98" y="206" width="484" height="22" fill="url(#g3-down)" opacity=".85"/></g>
+<g data-s="body" stroke="#000" stroke-opacity=".2"><polygon points="252,48 258,60 258,158 252,152" class="carc"/><polygon points="428,48 423.3,60 423.3,158 428,152" class="carc"/></g>
+<g pointer-events="none" fill="#000"><polygon points="252,48 258,60 258,158 252,152" fill-opacity=".26"/><polygon points="428,48 423.3,60 423.3,158 428,152" fill-opacity=".26"/><polygon points="98,152 252,152 258,158 113,158" fill-opacity=".4"/><polygon points="428,152 582,152 568,158 423.3,158" fill-opacity=".4"/><polygon class="hood-alt" display="none" points="252,152 428,152 423.3,158 258,158" fill-opacity=".4"/></g>
 <g data-s="handle" class="handle">
 <rect x="126" y="141" width="20" height="3"/><rect x="203" y="141" width="20" height="3"/><rect x="456" y="141" width="20" height="3"/><rect x="533" y="141" width="20" height="3"/>
 <rect x="148" y="212" width="20" height="3"/><rect x="269" y="212" width="20" height="3"/><rect x="380" y="213" width="40" height="3"/><rect x="380" y="242" width="40" height="3"/><rect x="380" y="271" width="40" height="3"/><rect x="511" y="212" width="20" height="3"/>
@@ -109,23 +121,27 @@
 <rect x="328" y="30" width="24" height="80" fill="#fff" fill-opacity=".08"/>
 <polygon points="272,150 408,150 382,108 298,108" class="hood"/>
 <polygon points="272,150 408,150 404,143 276,143" fill="#fff" fill-opacity=".16"/>
+<polygon points="272,150 408,150 420,176 260,176" fill="url(#g3-down)" opacity=".55" pointer-events="none"/>
 </g>
 <g data-s="body" class="hood-alt" display="none" stroke="#000" stroke-opacity=".2"><rect x="252" y="48" width="176" height="104" class="carc"/></g>
 <g data-s="front" class="hood-alt" display="none" stroke="#000" stroke-opacity=".14"><rect x="254" y="50" width="84" height="100" rx="2" class="front"/><rect x="342" y="50" width="84" height="100" rx="2" class="front"/></g>
 <g data-s="handle" class="handle hood-alt" display="none"><rect x="286" y="141" width="20" height="3"/><rect x="374" y="141" width="20" height="3"/></g>
 <g data-s="top">
+<polygon points="100,186 580,186 586,192 94,192" class="top"/>
+<polygon points="100,186 580,186 586,192 94,192" fill="#fff" fill-opacity=".3"/>
 <rect x="94" y="192" width="492" height="14" class="top"/>
 <rect x="94" y="192" width="492" height="4" fill="#fff" fill-opacity=".2"/>
 <path d="M130 200Q160 198 190 201M260 199Q300 202 340 199M420 201Q470 198 520 200" stroke="#000" stroke-opacity=".12" stroke-width="1" fill="none"/>
-<rect x="116" y="182" width="40" height="10" rx="1" class="top"/>
-<rect x="116" y="182" width="40" height="10" rx="1" fill="#000" fill-opacity=".14"/>
+<rect x="94" y="204" width="492" height="2" fill="#000" fill-opacity=".22"/>
 </g>
 <g data-s="hob"><rect x="306" y="188.5" width="68" height="4" rx="1" class="hob" stroke="#000" stroke-opacity=".3"/><ellipse cx="324" cy="190.5" rx="7" ry="1" fill="#fff" fill-opacity=".22"/><ellipse cx="356" cy="190.5" rx="7" ry="1" fill="#fff" fill-opacity=".22"/></g>
 <g data-s="sink"><rect x="412" y="193" width="76" height="7" rx="2" class="sink" stroke="#000" stroke-opacity=".3"/><rect x="417" y="195" width="66" height="3.5" rx="1.5" fill="#000" fill-opacity=".3"/></g>
 <g data-s="faucet"><rect x="446" y="186" width="8" height="7" rx="1" class="faucet" stroke="#000" stroke-opacity=".25"/><rect x="448.5" y="166" width="3" height="20" class="faucet"/><path d="M450 168Q450 158 462 158L470 158L470 165" class="faucet-s" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></g>
-<g data-s="plinth"><rect x="100" y="292" width="480" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/></g>
+<g data-s="plinth"><rect x="100" y="292" width="480" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/><rect x="100" y="292" width="480" height="3" fill="#000" fill-opacity=".3"/></g>
 <rect x="100" y="300" width="480" height="7" fill="#000" fill-opacity=".14"/>
 <g id="fridgeG" data-s="fridge">
+<polygon points="590,38 580.4,46.5 580.4,299.9 590,302" class="fridge" stroke="#000" stroke-opacity=".2"/>
+<polygon points="590,38 580.4,46.5 580.4,299.9 590,302" fill="#000" fill-opacity=".3"/>
 <rect x="590" y="38" width="98" height="264" rx="3" fill="#000" fill-opacity=".28"/>
 <rect x="592" y="40" width="94" height="156" rx="3" class="fridge" stroke="#000" stroke-opacity=".2"/>
 <rect x="592" y="200" width="94" height="100" rx="3" class="fridge" stroke="#000" stroke-opacity=".2"/>
@@ -162,7 +178,7 @@
 <polygon points="108,172 150,172 126,204 108,204" fill="#fff" fill-opacity=".07" stroke="none"/>
 <rect x="112" y="166" width="68" height="3" rx="1.5" fill="#6D7072" stroke="none"/>
 </g>
-<g data-s="plinth"><rect x="96" y="292" width="100" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/></g>
+<g data-s="plinth"><rect x="96" y="292" width="100" height="8" class="plinth" stroke="#000" stroke-opacity=".2"/><rect x="96" y="292" width="100" height="3" fill="#000" fill-opacity=".3"/></g>
 <rect x="96" y="300" width="100" height="7" fill="#000" fill-opacity=".14"/>
 </g>
 <g id="ledG" pointer-events="none"><rect class="ledstrip" x="200" y="151" width="150" height="2.4" rx="1" fill="#D8D3C8"/><rect class="ledstrip" x="530" y="151" width="150" height="2.4" rx="1" fill="#D8D3C8"/><rect class="ledstrip hood-alt" display="none" x="352" y="151" width="176" height="2.4" rx="1" fill="#D8D3C8"/></g>
@@ -180,13 +196,15 @@
 </div>
 
 <div class="right">
-<section class="panel" aria-labelledby="prttl">
+<div class="seg rtabs" id="rtabs" role="tablist" aria-label="Разделы"><button type="button" role="tab" id="rt-presets" data-p="presets" aria-controls="rp-presets">Готовые сочетания</button><button type="button" role="tab" id="rt-editor" data-p="editor" aria-controls="rp-editor">Поверхности</button><button type="button" role="tab" id="rt-sum" data-p="sum" aria-controls="rp-sum">Набор цветов</button></div>
+<div class="rbody">
+<section class="panel" id="rp-presets" data-panel="presets" role="tabpanel" aria-labelledby="rt-presets">
 <h2 id="prttl">Готовые сочетания</h2>
 <div class="presets" id="presets"></div>
 <p class="note">Сочетания собраны по обзорам трендов 2026 года: <a href="https://www.homesandgardens.com/kitchens/kitchen-color-trends-2026" target="_blank" rel="noopener">Homes &amp; Gardens</a>, <a href="https://www.livingetc.com/ideas/kitchen-color-trends-2026" target="_blank" rel="noopener">Livingetc</a>, <a href="https://www.worktophub.co.uk/help-and-ideas/2026-top-kitchen-colour-trends" target="_blank" rel="noopener">Worktop Hub</a>. Оттенки приблизительные.</p>
 </section>
 
-<section class="panel" aria-labelledby="mnttl">
+<section class="panel" id="rp-editor" data-panel="editor" role="tabpanel" aria-labelledby="rt-editor" hidden>
 <h2 id="mnttl">Подбор по поверхностям</h2>
 <div class="folder">
 <div class="tabs" id="tabs" role="tablist" aria-label="Поверхность"></div>
@@ -195,13 +213,14 @@
 <p class="note">Pantone: цвет года 2026 и палитра весны–лета 2027 из отчёта Pantone по Неделе моды в Нью-Йорке. <a href="https://fashionunited.uk/news/fashion/pantone-nyfw-spring-summer-2027-color-trend-report-the-top-10-colors/2026092190442" target="_blank" rel="noopener">Источник</a></p>
 </section>
 
-<section class="panel" aria-labelledby="sumttl">
+<section class="panel" id="rp-sum" data-panel="sum" role="tabpanel" aria-labelledby="rt-sum" hidden>
 <div class="sumhead">
 <h2 id="sumttl">Набор цветов</h2>
 <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap"><span class="status" id="msg" role="status" aria-live="polite"></span><button class="btn" id="copy" type="button">Скопировать список</button></div>
 </div>
 <ul class="sumlist" id="sumlist"></ul>
 </section>
+</div>
 </div>
 </div>
 

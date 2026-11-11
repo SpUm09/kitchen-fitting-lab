@@ -255,7 +255,7 @@ function apply(){
   var ft=sel.floorTex;
   dsp('fl-persp',ft==='tile'||ft==='planks');dsp('fl-horiz',ft==='tile');
   document.getElementById('floorov').setAttribute('fill',['herring','checker','terrazzo','slabs'].indexOf(ft)>=0?'url(#fp-'+ft+')':'none');
-  dsp('fridgeG',sel.fridgeOn);dsp('colG',sel.colOn);
+  dsp('fridgeG',sel.fridgeOn);dsp('colG',sel.colOn);dsp('colFace',sel.colOn);
   grid.querySelectorAll('.fvfill').forEach(function(r){r.setAttribute('fill',floorHex())});
   grid.querySelectorAll('.toggle input').forEach(function(i){i.checked=!!sel[i.dataset.key]});
   grid.querySelectorAll('.chip').forEach(function(b){var k=b.dataset.kind,v=k==='type'?sel.tileType:k==='grout'?sel.grout:k==='floortex'?sel.floorTex:k==='toptex'?sel.topTex:k==='fronttex'?sel.frontTex:sel[cur().id];b.setAttribute('aria-pressed',String(v===b.dataset.id))});
@@ -305,7 +305,7 @@ function setZoom(on){
 }
 document.getElementById('sceneSvg').addEventListener('click',function(e){
   if(scene.classList.contains('zoomed')||document.body.classList.contains('presenting'))return;
-  var g=e.target.closest('[data-s]');if(g)setTab(g.dataset.s);
+  var g=e.target.closest('[data-s]');if(g){setRPanel('editor',true);setTab(g.dataset.s)}
 });
 zoomBtn.addEventListener('click',function(e){e.stopPropagation();setZoom(!scene.classList.contains('zoomed'))});
 document.addEventListener('keydown',function(e){if(e.key==='Escape')setZoom(false)});
@@ -364,8 +364,8 @@ document.addEventListener('keydown',function(e){
 })();
 
 var LIGHTS=[
- {id:'day',name:'День',tint:'#FFFFFF',ta:0,va:0,glow:0,sky:'#CFE6F5'},
- {id:'morning',name:'Утро',tint:'#CFE0FA',ta:.4,va:0,glow:0,sky:'#E4EEF9'},
+ {id:'day',name:'День',tint:'#FFFFFF',ta:0,va:.08,glow:0,sky:'#CFE6F5'},
+ {id:'morning',name:'Утро',tint:'#CFE0FA',ta:.4,va:.08,glow:0,sky:'#E4EEF9'},
  {id:'evening',name:'Вечер',tint:'#EBBFB4',ta:.34,va:.2,glow:.7,sky:'#F1B27E'},
  {id:'lamp',name:'Лампа',tint:'#FFC97A',ta:.5,va:.36,glow:1,sky:'#26354F'}
 ];
@@ -462,6 +462,7 @@ var TEXOV=[];
 document.querySelectorAll('#sceneSvg .front,#sceneSvg .top').forEach(function(n){
   var c=n.cloneNode(false);c.removeAttribute('class');c.removeAttribute('id');c.setAttribute('stroke','none');c.setAttribute('pointer-events','none');c.setAttribute('fill','none');
   c.dataset.tx=n.classList.contains('front')?'front':'top';n.parentNode.insertBefore(c,n.nextSibling);TEXOV.push(c);
+  if(c.dataset.tx==='front'){var sh=c.cloneNode(false);sh.setAttribute('fill','url(#g3-front)');sh.dataset.tx='';c.parentNode.insertBefore(sh,c.nextSibling)}
 });
 function texFill(kind){var t=kind==='top'?sel.topTex:sel.frontTex;return (t==='plain'||t==='matte')?'none':'url(#tx-'+kind+'-'+t+')'}
 function texName(list,v){return list.filter(function(t){return t[0]===v})[0][1]}
@@ -502,6 +503,24 @@ document.getElementById('share').onclick=function(){
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(url).then(function(){box.hidden=true;say('Ссылка скопирована')},fallback)}else{fallback()}
 };
 LIGHTS.forEach(function(l){var b=el('button',null,l.name);b.type='button';b.dataset.l=l.id;b.setAttribute('aria-pressed',String(l.id===light));b.onclick=function(){setLight(l.id,true)};document.getElementById('showLight').appendChild(b)});
+
+var RPANELS=['presets','editor','sum'],rtabs=document.getElementById('rtabs');
+function setRPanel(id,save){
+  if(RPANELS.indexOf(id)<0)id='presets';
+  RPANELS.forEach(function(p){
+    var on=p===id,b=document.getElementById('rt-'+p),s=document.getElementById('rp-'+p);
+    b.setAttribute('aria-selected',String(on));b.setAttribute('aria-pressed',String(on));b.tabIndex=on?0:-1;s.hidden=!on;
+  });
+  if(save){try{localStorage.setItem('kitchen-fitting-rtab',id)}catch(e){}}
+}
+rtabs.addEventListener('click',function(e){var b=e.target.closest('button[data-p]');if(b)setRPanel(b.dataset.p,true)});
+rtabs.addEventListener('keydown',function(e){
+  var i=RPANELS.indexOf(document.activeElement&&document.activeElement.dataset.p);if(i<0)return;
+  var n=e.key==='ArrowRight'?i+1:e.key==='ArrowLeft'?i-1:-1;if(n<0)return;
+  n=(n+RPANELS.length)%RPANELS.length;e.preventDefault();setRPanel(RPANELS[n],true);document.getElementById('rt-'+RPANELS[n]).focus();
+});
+var rsv='presets';try{rsv=localStorage.getItem('kitchen-fitting-rtab')||'presets'}catch(e){}
+setRPanel(rsv,false);
 checkSecret();
 applyHash();
 window.addEventListener('hashchange',function(){checkSecret();applyHash()});
