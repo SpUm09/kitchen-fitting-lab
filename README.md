@@ -8,6 +8,7 @@
 
 - Схематичная кухня: верхние и нижние шкафы, колонна с духовкой и микроволновкой, холодильник, столешница, фартук, стены и пол.
 - Цвет для каждой поверхности: стены, пол, фасады, ручки, корпуса (полоски между фасадами), цоколь, столешница, фартук, холодильник, духовка, микроволновка, вытяжка, плита, мойка, смеситель, светильники, окно.
+- Структуры стен: гладкая, венецианская штукатурка, травертин, короед, микроцемент, песчаная, карта земли (рваные островки, как у фактурной штукатурки). Выбираются во вкладке «Стены».
 - Фактуры столешницы (дерево, мрамор, крапинка) и фасадов (глянец, шпон, рифлёный). Если фартук «в цвет столешницы», он повторяет и её фактуру.
 - Фактуры пола: плитка, доска, однотонный, паркет ёлочка, шахматка, терраццо, крупные плиты.
 - Фартук: тип укладки (кабанчик, ёлочка, соты, мозаика, сплошная панель и другие), цвет плитки и цвет шва, вариант «в цвет столешницы».
@@ -50,4 +51,7 @@
 - [Homes & Gardens: Kitchen color trends 2026](https://www.homesandgardens.com/kitchens/kitchen-color-trends-2026)
 - [Livingetc: Kitchen color trends 2026](https://www.livingetc.com/ideas/kitchen-color-trends-2026)
 - [Worktop Hub: 2026 top kitchen colour trends](https://www.worktophub.co.uk/help-and-ideas/2026-top-kitchen-colour-trends)
+- [Homes & Gardens: Kitchen color trends 2027](https://www.homesandgardens.com/decor/kitchens/kitchen-color-trends-2027)
+- [Allure Kitchen Cabinet: Kitchen cabinet color trends 2027](https://www.allurekitchencabinet.com/blog/kitchen-cabinet-color-trends-2027)
+- [Yahoo Shopping: Kitchen cabinets 2027, designers' paint color trends](https://shopping.yahoo.com/home-garden/home-decor/articles/kitchen-cabinets-taking-look-2027-193800435.html)
 - [FashionUnited: Pantone NYFW spring/summer 2027 color trend report](https://fashionunited.uk/news/fashion/pantone-nyfw-spring-summer-2027-color-trend-report-the-top-10-colors/2026092190442)

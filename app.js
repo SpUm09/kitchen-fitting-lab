@@ -54,11 +54,20 @@ var PRESETS=[
  {name:'Матовый чёрный',blurb:'Чёрные фасады, светлое дерево и белый камень.',pick:{wall:'lgray',floor:'lightoak',front:'black',frontTex:'gloss',handle:'brass',top:'whitestone',topTex:'speckle',tile:'white',grout:'graphite',fridge:'black',body:'black',floorTex:'planks'}},
  {name:'Охра и земля',blurb:'Охристые фасады, песочные стены, терракотовый пол.',pick:{wall:'sand',floor:'terrafl',front:'ochre',handle:'bronze',top:'taj',tile:'milk',fridge:'cream'}},
  {name:'Графит и Dolphin',blurb:'Тёмные фасады, серый пол Pantone, орех на столешнице.',pick:{wall:'p-cloud',floor:'p-dolphin',front:'graphite',top:'walnut',tile:'p-cloud',tileType:'square',grout:'graphite',body:'graphite',fridge:'black',floorTex:'checker'}},
- {name:'Лофт',blurb:'Бетонные стены и пол, дерево как тёплый акцент.',pick:{wall:'lgray',floor:'concrete',front:'graphite',top:'oak',topTex:'wood',tile:'lgray',tileType:'slab',floorTex:'plain'}}
+ {name:'Лофт',blurb:'Бетонные стены и пол, дерево как тёплый акцент.',pick:{wall:'lgray',floor:'concrete',front:'graphite',top:'oak',topTex:'wood',tile:'lgray',tileType:'slab',floorTex:'plain'}},
+ {name:'Бургунди и дерево',blurb:'Землистый красный фасад, тёплое дерево на столешнице, латунь.',pick:{wall:'plaster',floor:'lightoak',front:'wine',handle:'brass',top:'oak',topTex:'wood',tile:'milk',tileType:'subv',floorTex:'planks'}},
+ {name:'Баклажан и изумруд',blurb:'Ягодный баклажан, изумрудная плитка, дерево и состаренная латунь.',pick:{wall:'greige',floor:'walnut',front:'aubergine',handle:'brass',top:'oak',topTex:'wood',tile:'dkgreen',tileType:'square',grout:'graphite',fridge:'black',floorTex:'planks'}},
+ {name:'Мягкий голубой и дуб',blurb:'Пыльно-голубой фасад, тёплые бежевые стены и натуральный пол.',pick:{wall:'greige',floor:'lightoak',front:'bluegray',handle:'brass',top:'taj',tile:'white',floorTex:'planks'}},
+ {name:'Мягкий коричневый',blurb:'Приглушённый «ореховый» коричневый, кремовые стены, бронза.',pick:{wall:'milk',floor:'warmgray',front:'clay',handle:'bronze',top:'limedoak',tile:'milk',tileType:'subway',floorTex:'slabs'}},
+ {name:'Тёплый оливковый и орех',blurb:'Мягкий оливковый, ореховая столешница и светлый тёплый пол.',pick:{wall:'vanilla',floor:'warmgray',front:'olive',handle:'brass',top:'walnut',topTex:'wood',tile:'white',tileType:'herring',floorTex:'herring'}},
+ {name:'Тёплый белый и дуб',blurb:'Сливочный белый фасад, светлый дуб, пыльно-голубые стены.',pick:{wall:'dustyblue',floor:'lightoak',front:'cream',handle:'bronze',top:'lightoak',topTex:'wood',tile:'milk',tileType:'subv',floorTex:'planks'}},
+ {name:'Уголь и светлое дерево',blurb:'Графитовые фасады, светлое дерево, греж на стенах.',pick:{wall:'greige',floor:'warmgray',front:'graphite',handle:'brass',top:'lightoak',topTex:'wood',tile:'white',body:'graphite',fridge:'graphf',floorTex:'slabs'}},
+ {name:'Лесной зелёный и камень',blurb:'Тёмно-зелёный фасад, светлый камень с прожилками, латунь.',pick:{wall:'sagemist',floor:'warmgray',front:'forest',handle:'brass',top:'whitestone',topTex:'marble',tile:'white',tileType:'square',floorTex:'plain'}}
 ];
 PRESETS.forEach(function(p){p.pick.body=p.pick.body||'tone';p.pick.handle=p.pick.handle||'dark';p.pick.hood=p.pick.hood||'dark';p.pick.hob=p.pick.hob||'glass';p.pick.sink=p.pick.sink||'steel';p.pick.faucet=p.pick.faucet||'tone';p.pick.pendant=p.pick.pendant||'tone';p.pick.window=p.pick.window||'white';p.pick.topTex=p.pick.topTex||'plain';p.pick.frontTex=p.pick.frontTex||'matte';p.pick.fridge=p.pick.fridge||'steel';p.pick.plinth=p.pick.plinth||'tone';var ap=['steel','white','black','cream'].indexOf(p.pick.fridge)>=0?p.pick.fridge:'steel';p.pick.oven=p.pick.oven||ap;p.pick.micro=p.pick.micro||ap;p.pick.floorTex=p.pick.floorTex||'tile'});
 var TYPES=[['subway','Кабанчик','Классика'],['subv','Кабанчик вертикально','Вертикально'],['herring','Ёлочка','Зигзаг'],['square','Квадратная','Сетка'],['hex','Шестигранник','Соты'],['mosaic','Мозаика','Мелкая'],['slab','Сплошная панель','Без швов'],['match','В цвет столешницы','Сплошная']];
 var TOPTEX=[['plain','Однотонная','Гладкая'],['wood','Дерево','Волокна'],['marble','Мрамор','Прожилки'],['speckle','Крапинка','Гранит']];
+var WALLTEX=[['plain','Гладкая','Без фактуры'],['venetian','Венецианская','Мраморные разводы'],['travertine','Травертин','Горизонтальные поры'],['bark','Короед','Вертикальные борозды'],['micro','Микроцемент','Облачные пятна'],['sand','Песчаная','Мелкое зерно'],['earth','Карта земли','Рваные островки']];
 var FRONTTEX=[['matte','Матовый','Гладкий'],['gloss','Глянец','Блик'],['wood','Шпон','Дерево'],['fluted','Рифлёный','Рейки']];
 var FLOORTEX=[['tile','Плитка','Сетка'],['planks','Доска','Доски'],['plain','Однотонный','Без рисунка'],['herring','Паркет ёлочка','Ёлочка'],['checker','Шахматка','Клетка'],['terrazzo','Терраццо','Крапинки'],['slabs','Крупные плиты','Широкие швы']];
 var GROUTS=[['tone','В тон плитки',null],['white','Белый','#FFFFFF'],['lgray','Светло-серый','#BDBDB8'],['beige','Тёплый бежевый','#CBBFA9'],['graphite','Графит','#4A4A48']];
@@ -79,11 +88,11 @@ function resolveHex(sid,oid,pick){var o=rawOpt(sid,oid);if(o.cust)return custom[
 function find(sid,oid){var o=rawOpt(sid,oid);if(!o)return o;return (o.src||o.cust)?{id:o.id,name:o.name,hex:resolveHex(sid,oid,sel)}:o}
 var scene=document.getElementById('scene'),grid=document.getElementById('grid'),tabs=document.getElementById('tabs'),presetsEl=document.getElementById('presets'),sumlist=document.getElementById('sumlist'),msg=document.getElementById('msg');
 var sel={},custom={};
-SURF.forEach(function(s){sel[s.id]=PRESETS[0].pick[s.id]});sel.tileType='subway';sel.grout='tone';sel.floorTex=PRESETS[0].pick.floorTex;sel.topTex=PRESETS[0].pick.topTex;sel.frontTex=PRESETS[0].pick.frontTex;sel.fridgeOn=true;sel.colOn=true;sel.pendOn=true;sel.ledOn=true;sel.winOn=true;sel.winSide='left';sel.hoodOn=true;
+SURF.forEach(function(s){sel[s.id]=PRESETS[0].pick[s.id]});sel.tileType='subway';sel.grout='tone';sel.floorTex=PRESETS[0].pick.floorTex;sel.topTex=PRESETS[0].pick.topTex;sel.frontTex=PRESETS[0].pick.frontTex;sel.wallTex='plain';sel.fridgeOn=true;sel.colOn=true;sel.pendOn=true;sel.ledOn=true;sel.winOn=true;sel.winSide='left';sel.hoodOn=true;
 SURF.forEach(function(s){custom[s.id]=resolveHex(s.id,sel[s.id],sel)});custom.grout=shade(tileHex(),.2);
 function loadState(saved){
   if(!saved||typeof saved!=='object')return;
-  SURF.forEach(function(s){if(saved[s.id]&&find(s.id,saved[s.id]))sel[s.id]=saved[s.id]});if(TYPES.some(function(t){return t[0]===saved.tileType}))sel.tileType=saved.tileType;if(saved.grout==='custom'||GROUTS.some(function(g){return g[0]===saved.grout}))sel.grout=saved.grout;if(FLOORTEX.some(function(t){return t[0]===saved.floorTex}))sel.floorTex=saved.floorTex;['fridgeOn','colOn','pendOn','ledOn','winOn','hoodOn'].forEach(function(k){if(typeof saved[k]==='boolean')sel[k]=saved[k]});if(TOPTEX.some(function(t){return t[0]===saved.topTex}))sel.topTex=saved.topTex;if(FRONTTEX.some(function(t){return t[0]===saved.frontTex}))sel.frontTex=saved.frontTex;if(saved.custom){Object.keys(custom).forEach(function(k){if(/^#[0-9a-fA-F]{6}$/.test(saved.custom[k]))custom[k]=saved.custom[k]})}
+  SURF.forEach(function(s){if(saved[s.id]&&find(s.id,saved[s.id]))sel[s.id]=saved[s.id]});if(TYPES.some(function(t){return t[0]===saved.tileType}))sel.tileType=saved.tileType;if(saved.grout==='custom'||GROUTS.some(function(g){return g[0]===saved.grout}))sel.grout=saved.grout;if(FLOORTEX.some(function(t){return t[0]===saved.floorTex}))sel.floorTex=saved.floorTex;['fridgeOn','colOn','pendOn','ledOn','winOn','hoodOn'].forEach(function(k){if(typeof saved[k]==='boolean')sel[k]=saved[k]});if(TOPTEX.some(function(t){return t[0]===saved.topTex}))sel.topTex=saved.topTex;if(FRONTTEX.some(function(t){return t[0]===saved.frontTex}))sel.frontTex=saved.frontTex;if(WALLTEX.some(function(t){return t[0]===saved.wallTex}))sel.wallTex=saved.wallTex;if(saved.custom){Object.keys(custom).forEach(function(k){if(/^#[0-9a-fA-F]{6}$/.test(saved.custom[k]))custom[k]=saved.custom[k]})}
   if(saved.winSide==='left'||saved.winSide==='right')sel.winSide=saved.winSide;
 }
 try{loadState(JSON.parse(localStorage.getItem('kitchen-fitting-sel')||'null'))}catch(e){}
@@ -111,7 +120,7 @@ function setTab(id,focus){
   if(focus){var t=tabs.querySelector('[data-id="'+id+'"]');if(t)t.focus()}
 }
 function renderGrid(){
-  var s=cur();grid.innerHTML='';if(s.id==='fridge')renderToggle('Показывать холодильник','fridgeOn');if(s.id==='oven'||s.id==='micro')renderToggle('Показывать колонну с духовкой и микроволновкой','colOn');if(s.id==='floor')renderFloorGroup();if(s.id==='top')renderTexGroup('Фактура столешницы',TOPTEX,'topTex','toptex','top');if(s.id==='front')renderTexGroup('Фактура фасадов',FRONTTEX,'frontTex','fronttex','front');if(s.id==='hood')renderToggle('Показывать вытяжку','hoodOn');if(s.id==='window'){renderToggle('Показывать окно','winOn');renderSideGroup()}if(s.id==='pendant'){renderToggle('Подвесные светильники','pendOn');renderToggle('Подсветка под шкафами','ledOn')}if(s.id==='tile'){renderTypeGroup();var mn=el('p','note','Фартук берёт цвет столешницы. Цвет плитки ниже начнёт действовать, если выбрать другой тип.');mn.id='matchNote';mn.hidden=sel.tileType!=='match';grid.appendChild(mn)}
+  var s=cur();grid.innerHTML='';if(s.id==='wall')renderTexGroup('Структура стен',WALLTEX,'wallTex','walltex','wall');if(s.id==='fridge')renderToggle('Показывать холодильник','fridgeOn');if(s.id==='oven'||s.id==='micro')renderToggle('Показывать колонну с духовкой и микроволновкой','colOn');if(s.id==='floor')renderFloorGroup();if(s.id==='top')renderTexGroup('Фактура столешницы',TOPTEX,'topTex','toptex','top');if(s.id==='front')renderTexGroup('Фактура фасадов',FRONTTEX,'frontTex','fronttex','front');if(s.id==='hood')renderToggle('Показывать вытяжку','hoodOn');if(s.id==='window'){renderToggle('Показывать окно','winOn');renderSideGroup()}if(s.id==='pendant'){renderToggle('Подвесные светильники','pendOn');renderToggle('Подсветка под шкафами','ledOn')}if(s.id==='tile'){renderTypeGroup();var mn=el('p','note','Фартук берёт цвет столешницы. Цвет плитки ниже начнёт действовать, если выбрать другой тип.');mn.id='matchNote';mn.hidden=sel.tileType!=='match';grid.appendChild(mn)}
   [['Классика',s.opts.filter(function(o){return !o.pan&&!o.cust})],['Pantone в тренде',s.opts.filter(function(o){return o.pan})]].forEach(function(g){
     var box=el('div','group');box.appendChild(el('div','gh',s.id==='tile'?'Цвет плитки · '+g[0]:g[0]));
     var row=el('div','chips');
@@ -158,7 +167,7 @@ function renderTexGroup(title,list,key,kind,sid){
     var b=el('button','chip');b.type='button';b.dataset.id=t[0];b.dataset.kind=kind;
     b.setAttribute('aria-pressed',String(sel[key]===t[0]));
     var blk=el('span','blk');var plain=(t[0]==='plain'||t[0]==='matte');
-    blk.innerHTML='<svg viewBox="0 0 130 62" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect class="txfill" data-sid="'+sid+'" width="130" height="62" fill="'+find(sid,sel[sid]).hex+'"/>'+(plain?'':'<rect width="130" height="62" fill="url(#tx-'+sid+'-'+t[0]+')"/>')+'</svg>';
+    blk.innerHTML='<svg viewBox="0 0 130 62" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect class="txfill" data-sid="'+sid+'" width="130" height="62" fill="'+find(sid,sel[sid]).hex+'"/>'+(plain?'':'<rect width="130" height="62" fill="url(#tx-'+sid+'-'+t[0]+(t[0]==='earth'?'-pv':'')+')"/>')+'</svg>';
     var m=el('span','meta');m.appendChild(el('span','nm',t[1]));m.appendChild(el('span','cd',t[2]));
     b.appendChild(blk);b.appendChild(m);
     b.onclick=function(){sel[key]=t[0];apply()};
@@ -242,6 +251,7 @@ function renderSummary(){
     if(s.id==='floor')t.appendChild(el('span','code','Фактура: '+floorTexName()));
     if(s.id==='top')t.appendChild(el('span','code','Фактура: '+texName(TOPTEX,sel.topTex)));
     if(s.id==='front')t.appendChild(el('span','code','Фактура: '+texName(FRONTTEX,sel.frontTex)));
+    if(s.id==='wall'&&sel.wallTex!=='plain')t.appendChild(el('span','code','Структура: '+texName(WALLTEX,sel.wallTex)));
     if(s.id==='tile')t.appendChild(el('span','code','Укладка: '+typeName()+(isSolid()?'':' · шов: '+groutName().toLowerCase()+' '+groutHex())));
     var lb=el('button','lockbtn');lb.type='button';lb.setAttribute('aria-pressed',String(!!locked[s.id]));lb.title='Зафиксировать при случайном подборе';lb.setAttribute('aria-label','Зафиксировать: '+s.label);lb.innerHTML=lockSvg(!!locked[s.id]);
     lb.onclick=function(){locked[s.id]=!locked[s.id];renderSummary()};
@@ -258,7 +268,7 @@ function apply(){
   dsp('fridgeG',sel.fridgeOn);dsp('colG',sel.colOn);dsp('colFace',sel.colOn);
   grid.querySelectorAll('.fvfill').forEach(function(r){r.setAttribute('fill',floorHex())});
   grid.querySelectorAll('.toggle input').forEach(function(i){i.checked=!!sel[i.dataset.key]});
-  grid.querySelectorAll('.chip').forEach(function(b){var k=b.dataset.kind,v=k==='type'?sel.tileType:k==='grout'?sel.grout:k==='floortex'?sel.floorTex:k==='toptex'?sel.topTex:k==='fronttex'?sel.frontTex:sel[cur().id];b.setAttribute('aria-pressed',String(v===b.dataset.id))});
+  grid.querySelectorAll('.chip').forEach(function(b){var k=b.dataset.kind,v=k==='type'?sel.tileType:k==='grout'?sel.grout:k==='floortex'?sel.floorTex:k==='toptex'?sel.topTex:k==='fronttex'?sel.frontTex:k==='walltex'?sel.wallTex:sel[cur().id];b.setAttribute('aria-pressed',String(v===b.dataset.id))});
   var gx=groutHex();
   document.querySelectorAll('#sceneSvg .gp').forEach(function(p){p.setAttribute('stroke',gx);p.setAttribute('stroke-opacity','1');p.setAttribute('stroke-width','1')});
   document.getElementById('tileov').setAttribute('fill',sel.tileType==='match'?texFill('top'):isSolid()?'none':'url(#pat-'+sel.tileType+')');
@@ -280,7 +290,7 @@ function apply(){
 var barMsg=document.getElementById('barMsg');
 function say(t){msg.textContent=t;barMsg.textContent=t;clearTimeout(say.t);say.t=setTimeout(function(){msg.textContent='';barMsg.textContent=''},3000)}
 document.getElementById('copy').onclick=function(){
-  var text=SURF.filter(function(s){return !rowHidden(s.id)}).map(function(s){var o=find(s.id,sel[s.id]);if(s.id==='tile'&&sel.tileType==='match')o={name:'В цвет столешницы',hex:topHex()};return s.label+': '+o.name+(o.pan?' (Pantone '+o.code+')':'')+', '+o.hex+(s.id==='floor'?', фактура: '+floorTexName():'')+(s.id==='top'?', фактура: '+texName(TOPTEX,sel.topTex):'')+(s.id==='front'?', фактура: '+texName(FRONTTEX,sel.frontTex):'')+(s.id==='tile'?', укладка: '+typeName()+(isSolid()?'':', шов: '+groutName().toLowerCase()+' '+groutHex()):'')}).join('\n');
+  var text=SURF.filter(function(s){return !rowHidden(s.id)}).map(function(s){var o=find(s.id,sel[s.id]);if(s.id==='tile'&&sel.tileType==='match')o={name:'В цвет столешницы',hex:topHex()};return s.label+': '+o.name+(o.pan?' (Pantone '+o.code+')':'')+', '+o.hex+(s.id==='floor'?', фактура: '+floorTexName():'')+(s.id==='top'?', фактура: '+texName(TOPTEX,sel.topTex):'')+(s.id==='front'?', фактура: '+texName(FRONTTEX,sel.frontTex):'')+(s.id==='wall'&&sel.wallTex!=='plain'?', структура: '+texName(WALLTEX,sel.wallTex).toLowerCase():'')+(s.id==='tile'?', укладка: '+typeName()+(isSolid()?'':', шов: '+groutName().toLowerCase()+' '+groutHex()):'')}).join('\n');
   var fallback=function(){var r=document.createRange();r.selectNodeContents(sumlist);var g=window.getSelection();g.removeAllRanges();g.addRange(r);say('Список выделен, нажмите Ctrl+C')};
   if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(function(){say('Скопировано')},fallback)}else{fallback()}
 };
@@ -459,12 +469,13 @@ document.addEventListener('keydown',function(e){
   else if(e.code==='KeyY'||(e.code==='KeyZ'&&e.shiftKey)){e.preventDefault();redo()}
 });
 var TEXOV=[];
-document.querySelectorAll('#sceneSvg .front,#sceneSvg .top').forEach(function(n){
+document.querySelectorAll('#sceneSvg .front,#sceneSvg .top,#sceneSvg .wall').forEach(function(n){
+  if(n.classList.contains('wall')&&n.getAttribute('points')==='0,0 900,0 840,30 60,30')return;
   var c=n.cloneNode(false);c.removeAttribute('class');c.removeAttribute('id');c.setAttribute('stroke','none');c.setAttribute('pointer-events','none');c.setAttribute('fill','none');
-  c.dataset.tx=n.classList.contains('front')?'front':'top';n.parentNode.insertBefore(c,n.nextSibling);TEXOV.push(c);
+  c.dataset.tx=n.classList.contains('front')?'front':n.classList.contains('wall')?'wall':'top';n.parentNode.insertBefore(c,n.nextSibling);TEXOV.push(c);
   if(c.dataset.tx==='front'){var sh=c.cloneNode(false);sh.setAttribute('fill','url(#g3-front)');sh.dataset.tx='';c.parentNode.insertBefore(sh,c.nextSibling)}
 });
-function texFill(kind){var t=kind==='top'?sel.topTex:sel.frontTex;return (t==='plain'||t==='matte')?'none':'url(#tx-'+kind+'-'+t+')'}
+function texFill(kind){var t=kind==='top'?sel.topTex:kind==='wall'?sel.wallTex:sel.frontTex;return (t==='plain'||t==='matte')?'none':'url(#tx-'+kind+'-'+t+')'}
 function texName(list,v){return list.filter(function(t){return t[0]===v})[0][1]}
 var seg=document.getElementById('themeSeg');
 function setTheme(t,save){var r=document.documentElement;if(t==='system')r.removeAttribute('data-theme');else r.setAttribute('data-theme',t);seg.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',String(b.dataset.t===t))});if(save){try{localStorage.setItem('kitchen-fitting-theme',t)}catch(e){}}}
@@ -474,7 +485,7 @@ if(['system','light','dark'].indexOf(th)<0)th='system';
 setTheme(th,false);
 renderTabs();renderGrid();renderPresets();apply();
 tabs.addEventListener('wheel',function(e){var max=tabs.scrollWidth-tabs.clientWidth;if(max<=0||Math.abs(e.deltaY)<=Math.abs(e.deltaX))return;var n=tabs.scrollLeft+e.deltaY;if(n<0||n>max)return;tabs.scrollLeft=n;e.preventDefault()},{passive:false});
-var SECRET={tolik:{wall:'greige',floor:'warmgray',front:'sage',handle:'dark',body:'tone',plinth:'tone',top:'oak',tile:'white',fridge:'steel',tileType:'subway',grout:'tone',oven:'steel',micro:'steel',hood:'dark',hob:'glass',sink:'steel',faucet:'tone',pendant:'tone',window:'white',floorTex:'tile',topTex:'plain',frontTex:'matte'}};
+var SECRET={tolik:{wall:'greige',floor:'warmgray',front:'sage',handle:'black',body:'tone',plinth:'tone',top:'oak',tile:'white',fridge:'steel',tileType:'match',grout:'tone',oven:'black',micro:'black',hood:'dark',hob:'glass',sink:'black',faucet:'black',pendOn:false,ledOn:false,pendant:'tone',window:'white',floorTex:'tile',topTex:'plain',frontTex:'matte'}};
 function checkSecret(){
   var key='';
   try{key=new URLSearchParams(location.search).get('get')||''}catch(e){}
@@ -482,6 +493,7 @@ function checkSecret(){
   key=key.toLowerCase();
   if(!key||!SECRET[key])return;
   var p=SECRET[key];
+  if(typeof p.pendOn==='boolean')sel.pendOn=p.pendOn;if(typeof p.ledOn==='boolean')sel.ledOn=p.ledOn;
   SURF.forEach(function(s){sel[s.id]=p[s.id]});
   sel.tileType=p.tileType;sel.grout=p.grout;sel.floorTex=p.floorTex;sel.topTex=p.topTex;sel.frontTex=p.frontTex;
   apply();
